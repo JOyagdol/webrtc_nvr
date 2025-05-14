@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Third Eye</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="./resources/css/style_1920.css" />
+    <link rel="stylesheet" href="./resources/css/fonts.css" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </head>
+
+  <body>
+    <div class="page_container">
+      <div class="body">
+        <div class="main_container">
+          <div class="main_wrapper">
+            <!-- <div id="background_main"></div>
+            <div id="background_main_emergency"></div> -->
+
+            <div class="main_area">
+              <!-- 헤더 -->
+              <div class="header">
+                <!-- 로고 -->
+                <!-- <img
+                  class="header_bg"
+                  alt=""
+                  src="./resources/img/common/header.png"
+                /> -->
+                <div class="header_box">
+                  <!-- 햄버거 메뉴 버튼 -->
+                  <div class="side_menu_btn" onclick="openSideMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <img
+                    alt=""
+                    class="cursor"
+                    src="./resources/img/common/header_logo.png"
+                    onclick="navMenu('over')"
+                  />
+                  <div class="header_duration">
+                    <img alt="" src="./resources/img/common/clock.png" />
+                    <div class="duration_label">남은시간</div>
+                    <div class="duration_value">59:31</div>
+                  </div>
+                </div>
+
+                <!-- 헤더 메뉴 리스트 -->
+                <div class="header_box">
+                  <div
+                    id="menu_over"
+                    class="menu active"
+                    onclick="navMenu('over')"
+                  >
+                    Overview
+                  </div>
+                  <div id="menu_live" class="menu" onclick="navMenu('live')">
+                    Live view
+                  </div>
+                  <div id="menu_dot" class="menu" onclick="navMenu('dot')">
+                    Dot view
+                  </div>
+                </div>
+
+                <!-- 헤더 우측 날씨 및 온도 영역 -->
+                <div class="header_box">
+                  <div class="weather_wrap">
+                    <img alt="" src="./resources/img/common/weather.png" />
+
+                    <div class="temperature_wrap">
+                      <div class="temperature_label">온도</div>
+                      <div class="temperature_value"><span>25</span>℃</div>
+                    </div>
+
+                    <span></span>
+
+                    <div class="humidity_wrap">
+                      <div class="humidity_label">습도</div>
+                      <div class="humidity_value"><span>30</span>%</div>
+                    </div>
+                  </div>
+                  <div class="datetime"></div>
+                  <div class="profile_btn">
+                    <img alt="" src="./resources/img/common/profile.png" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- 햄버거 메뉴 -->
+              <div id="side_menu">
+                <div class="side_menu_title">Menu</div>
+                <div class="side_menu_item" onclick="navMenu('over')">
+                  <img alt="" src="./resources/img/common/home.png" />
+                  <span>Home 실시간 영상</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('video')">
+                  <img alt="" src="./resources/img/common/video.png" />
+                  <span>영상 조회</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('log')">
+                  <img alt="" src="./resources/img/common/log.png" />
+                  <span>이벤트 감지 내역</span>
+                </div>
+                <div class="side_menu_item">
+                  <img alt="" src="./resources/img/common/setting.png" />
+                  <span>설정 및 관리</span>
+                </div>
+              </div>
+
+              <!-- 평상시 모니터링 화면 -->
+              <div id="main_contents_over">
+                <div class="canvas_wrap">
+                  <canvas id="overview_canvas"></canvas>
+                </div>
+                <div class="contents_area" onclick="openPopup()">
+                  <div
+                    class="location_select_wrap"
+                    onclick="stopBubbling(event)"
+                  >
+                    <select class="form-select">
+                      <option selected>산학관 S14동</option>
+                    </select>
+
+                    <div class="floor_list">
+                      <div class="floor" name="f7" onclick="changeFloor('f7')">
+                        F7
+                      </div>
+                      <div class="floor" name="f6" onclick="changeFloor('f6')">
+                        F6
+                      </div>
+                      <div class="floor" name="f5" onclick="changeFloor('f5')">
+                        F5
+                      </div>
+                      <div class="floor" name="f4" onclick="changeFloor('f4')">
+                        F4
+                      </div>
+                      <div class="floor" name="f3" onclick="changeFloor('f3')">
+                        F3
+                      </div>
+                      <div
+                        class="floor active"
+                        name="f2"
+                        onclick="changeFloor('f2')"
+                      >
+                        F2
+                      </div>
+                      <div class="floor" name="f1" onclick="changeFloor('f1')">
+                        F1
+                      </div>
+                      <div class="floor" name="b1" onclick="changeFloor('b1')">
+                        B1
+                      </div>
+                      <div class="floor" name="b2" onclick="changeFloor('b2')">
+                        B2
+                      </div>
+                      <div class="floor" name="b3" onclick="changeFloor('b3')">
+                        B3
+                      </div>
+                      <div class="floor" name="b4" onclick="changeFloor('b4')">
+                        B4
+                      </div>
+                      <div class="floor" name="b5" onclick="changeFloor('b5')">
+                        B5
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="overview_main_container">
+                    <div class="location_info_wrap">
+                      <div class="location_name">산학관 S14동</div>
+                      <div class="location_address_wrap">
+                        <div class="location_address_icon">
+                          <img alt="" src="./resources/img/common/address.png" />
+                        </div>
+                        <div class="location_address">
+                          부산 남구 감만동 189-111
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 우상단 floating 버튼 -->
+                    <div class="float_btn_area_top">
+                      <div class="float_btn_wrap">
+                        <div
+                          class="emergency_button"
+                          onclick="onEmergency(event)"
+                        >
+                          <img alt="" src="./resources/img/common/emergency.png" />
+                        </div>
+                        <div class="share_button" onclick="stopBubbling(event)">
+                          <img alt="" src="./resources/img/common/share.png" />
+                        </div>
+                      </div>
+
+                      <div class="float_btn_wrap">
+                        <div class="view_btn" onclick="stopBubbling(event)">
+                          2D
+                        </div>
+                        <span></span>
+                        <div
+                          class="view_btn active"
+                          onclick="stopBubbling(event)"
+                        >
+                          3D
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 우하단 floating 버튼 -->
+                    <div class="float_btn_area_bottom">
+                      <!-- <div class="way_btn" onclick="stopBubbling(event)">
+                        <label for="way_chk_box">
+                          <div class="way_chk_box_label">
+                            <img
+                              class="way_chk_box_icon"
+                              alt=""
+                              src="./resources/img/common/check.png"
+                            />
+                          </div>
+                        </label>
+                        <input id="way_chk_box" type="checkbox" />
+                        <div class="way_btn_text">소방진입로</div>
+                      </div> -->
+
+                      <div class="float_btn_wrap">
+                        <div
+                          class="full_screen_btn"
+                          onclick="stopBubbling(event)"
+                        >
+                          <img alt="" src="./resources/img/common/full_screen.png" />
+                        </div>
+                        <div class="resolution_btn_area">
+                          <div
+                            class="resolution_btn cursor"
+                            onclick="stopBubbling(event)"
+                          >
+                            +
+                          </div>
+                          <span></span>
+                          <div
+                            class="resolution_btn cursor"
+                            onclick="stopBubbling(event)"
+                          >
+                            <img alt="" src="./resources/img/common/minus.png" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 카메라 모달 -->
+                    <div id="overview_popup">
+                      <div class="cctv_popup_wrap safe">
+                        <div class="cctv_popup_title safe">Safety</div>
+                        <div class="cctv_popup_contents">
+                          <div class="cctv_name_wrap">
+                            <div class="cctv_code">f2_2021</div>
+                            <div class="cctv_name">2층 민원실 | 앞 로비</div>
+                            <video
+                              src="./resources/movies/waterfall.mp4"
+                              controls
+                            ></video>
+                            <div class="cctv_footer">
+                              <div class="cctv_place_type safe">안전</div>
+                              <div class="cctv_place_status">
+                                <div class="cctv_place_status_item">
+                                  <div class="cctv_place_status_label">
+                                    온도
+                                  </div>
+                                  <div
+                                    class="cctv_place_status_value_temp safe"
+                                  >
+                                    <span>20</span>℃
+                                  </div>
+                                </div>
+                                <div class="cctv_place_status_item">
+                                  <div class="cctv_place_status_label">
+                                    습도
+                                  </div>
+                                  <div class="cctv_place_status_value_hum safe">
+                                    <span>46</span>%
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 우측 상태 사이드바 -->
+                <div class="sidebar">
+                  <div class="status_box">
+                    <div class="status_title">전체 센서상태</div>
+                    <div class="status_chart_wrap">
+                      <img alt="" src="./resources/img/common/chart_normal.png" />
+                      <div class="status_chart_text">
+                        <div class="status_chart_label">Normal</div>
+                        <div class="status_chart_value"><span>0</span>%</div>
+                      </div>
+                    </div>
+
+                    <div class="status_list">
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Total</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>100</span>%
+                          </div>
+                          <div class="status_info_cnt">103 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Normal</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>100</span>%
+                          </div>
+                          <div class="status_info_cnt">103 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Warning</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent"><span>0</span>%</div>
+                          <div class="status_info_cnt">0 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Danger</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent"><span>0</span>%</div>
+                          <div class="status_info_cnt">0 대</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="status_box">
+                    <div class="status_title">공간상태</div>
+
+                    <div class="place_select_wrap">
+                      <div class="place_select_item">
+                        <div class="place_select_label">장소 선택</div>
+                        <select class="form-select">
+                          <option selected>2층 민원실</option>
+                        </select>
+                      </div>
+                      <div class="place_select_item">
+                        <div class="place_select_label">센서 선택</div>
+                        <select class="form-select">
+                          <option selected>세무 2과 정면</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="space_risk_wrap">
+                      <div class="space_risk_label">
+                        <div class="space_risk_title">공간 위험도</div>
+                        <div class="space_risk_tooltip">?</div>
+                      </div>
+
+                      <div class="space_risk_contents">
+                        <div class="space_risk_info">
+                          <div class="space_risk_value">
+                            10<span>안전</span>
+                          </div>
+                          <div class="space_risk_accuracy">정확도 96%</div>
+                        </div>
+                        <div
+                          class="progress"
+                          role="progressbar"
+                          aria-label="Success example"
+                          aria-valuenow="90"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 100%; height: 6px; margin-top: 10px"
+                        >
+                          <div
+                            class="progress-bar"
+                            style="width: 90%; background-color: #00d4a1"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div class="space_risk_type_list">
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/fire.png" />
+                            <div class="space_risk_light_wrap">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>0</span>%
+                            </div>
+                            <div class="space_risk_info_label">불꽃</div>
+                          </div>
+                        </div>
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/smoke.png" />
+                            <div class="space_risk_light_wrap">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>0</span>%
+                            </div>
+                            <div class="space_risk_info_label">연기</div>
+                          </div>
+                        </div>
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/heat.png" />
+                            <div class="space_risk_light_wrap">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>0</span>%
+                            </div>
+                            <div class="space_risk_info_label">열</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space_status_wrap">
+                      <div class="space_status_title">공간 현황</div>
+                      <div class="space_status_contents">
+                        <div class="space_temp_item">
+                          <div class="space_temp_label">온도</div>
+                          <div class="space_temp_value_box">
+                            <div class="space_temp_value"><span>20</span>℃</div>
+                          </div>
+                        </div>
+                        <div class="space_hum_item">
+                          <div class="space_hum_label">습도</div>
+                          <div class="space_hum_value_box">
+                            <div class="space_hum_value"><span>46</span>%</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <img alt="" src="./resources/img/common/status1.png" />
+                  <img alt="" src="./resources/img/common/status2.png" /> -->
+                </div>
+              </div>
+
+              <!-- 화재 발생시 모니터링 화면 -->
+              <div id="main_contents_over_emergency">
+                <div class="emergency_canvas_wrap">
+                  <canvas id="overview_emergency_canvas"></canvas>
+                </div>
+                <div class="contents_area" onclick="openEmergencyPopup()">
+                  <div
+                    class="location_select_wrap"
+                    onclick="stopBubbling(event)"
+                  >
+                    <select class="form-select">
+                      <option selected>산학관 S14동</option>
+                    </select>
+
+                    <div class="floor_list">
+                      <div class="floor" name="f7" onclick="changeFloor('f7')">
+                        F7
+                      </div>
+                      <div class="floor" name="f6" onclick="changeFloor('f6')">
+                        F6
+                      </div>
+                      <div class="floor" name="f5" onclick="changeFloor('f5')">
+                        F5
+                      </div>
+                      <div class="floor" name="f4" onclick="changeFloor('f4')">
+                        F4
+                      </div>
+                      <div class="floor" name="f3" onclick="changeFloor('f3')">
+                        F3
+                      </div>
+                      <div
+                        class="floor active"
+                        name="f2"
+                        onclick="changeFloor('f2')"
+                      >
+                        F2
+                      </div>
+                      <div class="floor" name="f1" onclick="changeFloor('f1')">
+                        F1
+                      </div>
+                      <div class="floor" name="b1" onclick="changeFloor('b1')">
+                        B1
+                      </div>
+                      <div class="floor" name="b2" onclick="changeFloor('b2')">
+                        B2
+                      </div>
+                      <div class="floor" name="b3" onclick="changeFloor('b3')">
+                        B3
+                      </div>
+                      <div class="floor" name="b4" onclick="changeFloor('b4')">
+                        B4
+                      </div>
+                      <div class="floor" name="b5" onclick="changeFloor('b5')">
+                        B5
+                      </div>
+                    </div>
+                  </div>
+                  <div class="overview_main_container">
+                    <!-- 화재 카메라 모달 -->
+                    <div id="overview_emergency_popup">
+                      <div class="cctv_popup_wrap danger">
+                        <div class="cctv_popup_title danger">Emergency</div>
+                        <div class="cctv_popup_contents">
+                          <div class="cctv_name_wrap">
+                            <div class="cctv_code">f2_2021</div>
+                            <div class="cctv_name">2층 민원실 | 앞 로비</div>
+                            <video
+                              src="./resources/movies/waterfall.mp4"
+                              controls
+                            ></video>
+                            <div class="cctv_footer">
+                              <div class="cctv_place_type danger">
+                                매우 위험
+                              </div>
+                              <div class="cctv_place_status">
+                                <div class="cctv_place_status_item">
+                                  <div class="cctv_place_status_label">
+                                    온도
+                                  </div>
+                                  <div
+                                    class="cctv_place_status_value_temp danger"
+                                  >
+                                    <span>300</span>℃
+                                  </div>
+                                </div>
+                                <div class="cctv_place_status_item">
+                                  <div class="cctv_place_status_label">
+                                    습도
+                                  </div>
+                                  <div
+                                    class="cctv_place_status_value_hum danger"
+                                  >
+                                    <span>0</span>%
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      id="overview_emergency_status_popup"
+                      onclick="stopBubbling(event)"
+                    >
+                      <div class="overview_emergency_status_popup_container">
+                        <div class="overview_emergency_status_popup_header">
+                          <div class="overview_emergency_status_popup_title">
+                            상황 보고
+                          </div>
+                          <div
+                            class="overview_emergency_status_popup_close_btn"
+                            onclick="closeStatusPopup()"
+                          >
+                            <img alt="" src="./resources/img/common/close.png" />
+                          </div>
+                        </div>
+
+                        <table
+                          class="status_popup_table table table-hover table-bordered"
+                        >
+                          <thead>
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col">소속</th>
+                              <th scope="col">직급</th>
+                              <th scope="col">성명</th>
+                              <th scope="col">비고</th>
+                            </tr>
+                          </thead>
+                          <tbody id="status_popup_tbody"></tbody>
+                        </table>
+
+                        <div class="status_report_wrap">
+                          <div class="status_report_header">보고 내용</div>
+
+                          <textarea
+                            class="status_report_textarea"
+                            placeholder="보고 내용을 입력해 주세요."
+                            re
+                          ></textarea>
+                        </div>
+
+                        <div class="status_report_footer">
+                          <button class="status_report_button">
+                            보고 하기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="location_info_wrap">
+                      <div class="location_name">산학관 S14동</div>
+                      <div class="location_address_wrap">
+                        <div class="location_address_icon">
+                          <img alt="" src="./resources/img/common/address.png" />
+                        </div>
+                        <div class="location_address">
+                          부산 남구 감만동 189-111
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 우상단 floating 버튼 -->
+                    <div class="float_btn_area_top">
+                      <div class="float_btn_wrap">
+                        <div class="share_button" onclick="stopBubbling(event)">
+                          <img alt="" src="./resources/img/common/share.png" />
+                        </div>
+                      </div>
+
+                      <div class="float_btn_wrap">
+                        <div class="view_btn" onclick="stopBubbling(event)">
+                          2D
+                        </div>
+                        <span></span>
+                        <div
+                          class="view_btn active"
+                          onclick="stopBubbling(event)"
+                        >
+                          3D
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 우하단 floating 버튼 -->
+                    <div class="float_btn_area_bottom">
+                      <!-- <div class="way_btn" onclick="stopBubbling(event)">
+                        <label for="way_chk_box">
+                          <div class="way_chk_box_label">
+                            <img
+                              class="way_chk_box_icon"
+                              alt=""
+                              src="./resources/img/common/check.png"
+                            />
+                          </div>
+                        </label>
+                        <input id="way_chk_box" type="checkbox" />
+                        <div class="way_btn_text">소방진입로</div>
+                      </div> -->
+
+                      <div class="float_btn_wrap">
+                        <div
+                          class="full_screen_btn"
+                          onclick="stopBubbling(event)"
+                        >
+                          <img alt="" src="./resources/img/common/full_screen.png" />
+                        </div>
+                        <div
+                          class="resolution_btn_area"
+                          onclick="stopBubbling(event)"
+                        >
+                          <div class="resolution_btn cursor">+</div>
+                          <span></span>
+                          <div
+                            class="resolution_btn cursor"
+                            onclick="stopBubbling(event)"
+                          >
+                            <img alt="" src="./resources/img/common/minus.png" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 우측 화재 상태 사이드바 -->
+                <div class="sidebar">
+                  <div class="status_box">
+                    <div class="fire_alarm_header">
+                      <div class="fire_alarm_title">
+                        <img
+                          alt=""
+                          src="./resources/img/common/emergency_alarm.png"
+                        />
+                        <span>화재경보</span>
+                      </div>
+                      <div
+                        class="fire_alarm_live_view_btn"
+                        onclick="navMenu('live')"
+                      >
+                        <span>라이브뷰 전체보기</span>
+                        <img alt="" src="./resources/img/common/right.png" />
+                      </div>
+                    </div>
+                    <div class="fire_alarm_contents">
+                      <div class="fire_alarm_content_item">
+                        <div class="fire_alarm_label">카메라명 :</div>
+                        <div class="fire_alarm_value">cam f2-23</div>
+                      </div>
+                      <div class="fire_alarm_content_item">
+                        <div class="fire_alarm_label">발생 위치 :</div>
+                        <div class="fire_alarm_value">
+                          2층 민원실 앞 복도/계단
+                        </div>
+                      </div>
+                      <div class="fire_alarm_content_item">
+                        <div class="fire_alarm_label">발생 시간 :</div>
+                        <div class="fire_alarm_value">2024-01-01 14:45:10</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="status_box">
+                    <div class="status_title">화재 관련 센서상태</div>
+                    <div class="status_chart_wrap">
+                      <img alt="" src="./resources/img/common/chart_danger.png" />
+                      <div class="status_chart_text">
+                        <div class="status_chart_label">Danger</div>
+                        <div class="status_chart_value"><span>60</span>%</div>
+                      </div>
+                    </div>
+
+                    <div class="status_list">
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Total</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>100</span>%
+                          </div>
+                          <div class="status_info_cnt">100 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Normal</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>10</span>%
+                          </div>
+                          <div class="status_info_cnt">10 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Warning</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>30</span>%
+                          </div>
+                          <div class="status_info_cnt">30 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Danger</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>60</span>%
+                          </div>
+                          <div class="status_info_cnt">60 대</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="status_box">
+                    <div class="status_title">공간상태</div>
+
+                    <div class="fire_alarm_place">
+                      <div class="fire_alarm_place_location">
+                        2층 민원실 | 앞 로비
+                      </div>
+                      <div class="fire_alarm_place_camera">F2_23</div>
+                    </div>
+
+                    <div class="space_risk_wrap">
+                      <div class="space_risk_label">
+                        <div class="space_risk_title">공간 위험도</div>
+                        <div class="space_risk_tooltip">?</div>
+                      </div>
+
+                      <div class="space_risk_contents">
+                        <div class="space_risk_info">
+                          <div class="space_risk_value">
+                            90<span>매우 위험</span>
+                          </div>
+                          <div class="space_risk_accuracy">정확도 96%</div>
+                        </div>
+                        <div
+                          class="progress"
+                          role="progressbar"
+                          aria-label="Danger example"
+                          aria-valuenow="90"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: 100%; height: 6px; margin-top: 10px"
+                        >
+                          <div
+                            class="progress-bar danger"
+                            style="width: 10%; background-color: #d92b3f"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div class="space_risk_type_list">
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/temp.png" />
+                            <div class="space_risk_light_wrap danger">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>300</span>℃
+                            </div>
+                            <div class="space_risk_info_label">온도</div>
+                          </div>
+                        </div>
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/hum.png" />
+                            <div class="space_risk_light_wrap danger">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>0</span>%
+                            </div>
+                            <div class="space_risk_info_label">습도</div>
+                          </div>
+                        </div>
+                        <div class="space_risk_type_item">
+                          <div class="space_risk_header">
+                            <img alt="" src="./resources/img/common/person.png" />
+                            <div class="space_risk_light_wrap danger">
+                              <div class="space_risk_light"></div>
+                            </div>
+                          </div>
+                          <div class="space_risk_info_wrap">
+                            <div class="space_risk_info_value">
+                              <span>2</span>명
+                            </div>
+                            <div class="space_risk_info_label">사람</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="extinguisher_list">
+                      <div class="extinguisher_item">
+                        <div class="extinguisher_label">소화기</div>
+                        <div class="extinguisher_value"><span>2</span>개</div>
+                      </div>
+                      <div class="extinguisher_item">
+                        <div class="extinguisher_label">스프링쿨러</div>
+                        <div class="extinguisher_value"><span>5</span>개</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 사이드바 버튼 -->
+                  <div class="sidebar_btn_wrap">
+                    <button onclick="openStatusPopup()">유관기관 신고</button>
+                    <button>상황 보고</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //건물도면 canvas 그리기
+      var parent = document.querySelector(".canvas_wrap");
+      var parent2 = document.querySelector(".emergency_canvas_wrap");
+      var canvas = document.getElementById("overview_canvas");
+      var emergencyCanvas = document.getElementById(
+        "overview_emergency_canvas"
+      );
+      var ctx = canvas.getContext("2d");
+      var emergencyCtx = emergencyCanvas.getContext("2d");
+      // 부모 요소의 크기에 따라 캔버스 크기를 동적으로 설정합니다.
+      function resizeCanvas() {
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        emergencyCanvas.width = parent2.offsetWidth;
+        emergencyCanvas.height = parent2.offsetHeight;
+      }
+
+      function drawImageToCanvas() {
+        var image = new Image();
+        var emergencyImage = new Image();
+        image.onload = function () {
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        };
+        // 이미지 경로를 설정합니다. 적절한 이미지 경로로 변경하세요.
+        image.src = "./resources/img/common/main_bg.png";
+
+        emergencyImage.onload = function () {
+          emergencyCtx.drawImage(
+            emergencyImage,
+            0,
+            0,
+            emergencyCanvas.width,
+            emergencyCanvas.height
+          );
+        };
+        // 이미지 경로를 설정합니다. 적절한 이미지 경로로 변경하세요.
+        emergencyImage.src = "./resources/img/common/emergency_bg.png";
+      }
+
+      // 초기화 함수
+      function init() {
+        // 캔버스 크기를 설정합니다.
+        resizeCanvas();
+
+        drawImageToCanvas();
+      }
+
+      // 초기화 함수 호출
+      init();
+
+      // 윈도우 크기가 변경될 때마다 캔버스 크기를 조정합니다.
+      window.addEventListener("resize", function () {
+        resizeCanvas();
+
+        drawImageToCanvas();
+      });
+
+      //헤더 현재 시간 표출
+      function dateTime() {
+        var now = dayjs();
+
+        // Format the date and time
+        var formattedDateTime = now.format("YYYY-MM-DD HH:mm:ss");
+
+        document.querySelector(".datetime").innerHTML = formattedDateTime;
+      }
+      // Update time initially
+      dateTime();
+      // Update time every second (1000 milliseconds)
+      setInterval(dateTime, 1000);
+
+      //소방 진입로 체크이벤트
+      var checkbox = document.querySelector("#way_chk_box");
+      var checkIcon = document.querySelector(".way_chk_box_icon");
+      var checkboxContainer = document.querySelector(".way_chk_box_label");
+
+      checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
+          checkboxContainer.style.backgroundColor = "#0373ff";
+          checkboxContainer.style.border = "solid 1px #0373ff";
+          checkIcon.style.display = "block";
+        } else {
+          checkboxContainer.style.backgroundColor = "transparent";
+          checkboxContainer.style.border = "solid 1px #c0c0c0";
+          checkIcon.style.display = "none";
+        }
+      });
+
+      //floor 변경
+      function changeFloor(floor) {
+        var floorBtn = document.querySelectorAll(".floor");
+        floorBtn.forEach(function (btn) {
+          if (floor == btn.getAttribute("name")) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+
+      //cctv 모달 열기
+      function openPopup() {
+        var overviewPopup = document.getElementById("overview_popup");
+        overviewPopup.classList.toggle("open");
+      }
+
+      function openEmergencyPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        if (statusPopup.getAttribute("style") == "display: flex;") {
+          closeStatusPopup();
+        } else {
+          var overviewPopup = document.getElementById(
+            "overview_emergency_popup"
+          );
+          overviewPopup.classList.toggle("open");
+        }
+      }
+
+      //emergenct cctv 모달
+      function onEmergency(event) {
+        event.stopPropagation();
+        // var background = document.getElementById("background_main");
+        // background.classList.add("emergency");
+
+        var emergencyBtn = document.querySelector(".emergency_button");
+        emergencyBtn.style.display = "none";
+
+        var content = document.getElementById("main_contents_over");
+        content.style.display = "none";
+        var emergencyContent = document.getElementById(
+          "main_contents_over_emergency"
+        );
+        emergencyContent.style.display = "flex";
+        init();
+      }
+
+      //위험 상황 보고 모달
+      function openStatusPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        var tableBody = document.getElementById("status_popup_tbody");
+        tableBody.innerHTML = "";
+
+        var dataArray = [
+          {
+            id: 1,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "홍길동",
+            etc: "-",
+          },
+          {
+            id: 2,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "김길동",
+            etc: "-",
+          },
+          {
+            id: 3,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "박길동",
+            etc: "-",
+          },
+          {
+            id: 4,
+            dept: "관리처 안전관리팀",
+            position: "관리팀장",
+            name: "황길동",
+            etc: "-",
+          },
+          {
+            id: 5,
+            dept: "관리처 안전관리팀",
+            position: "사무처장",
+            name: "이길동",
+            etc: "-",
+          },
+        ];
+        statusPopup.style.display = "flex";
+
+        dataArray.forEach(function (item) {
+          var row = tableBody.insertRow();
+          var checkBoxCell = row.insertCell(0); // 체크박스를 추가할 셀
+          var deptCell = row.insertCell(1);
+          var positionCell = row.insertCell(2);
+          var nameCell = row.insertCell(3);
+          var etcCell = row.insertCell(4);
+
+          var label = document.createElement("label");
+          label.setAttribute("for", "checkbox_" + item.id); // label과 checkbox를 연결
+
+          var checkboxWrap = document.createElement("div");
+          checkboxWrap.className = "popup_checkbox";
+          label.appendChild(checkboxWrap); // 라벨을 셀에 추가
+
+          var checkIcon = document.createElement("img");
+          checkIcon.src = "./resources/img/common/check.png";
+          checkIcon.className = "popup_checkbox_icon";
+          checkboxWrap.appendChild(checkIcon);
+          checkBoxCell.appendChild(label); // 라벨을 셀에 추가
+
+          var checkBox = document.createElement("input");
+          checkBox.type = "checkbox";
+          checkBox.className = "custom-checkbox";
+          checkBox.id = "checkbox_" + item.id; // 각 체크박스에 고유한 ID 부여
+          checkBox.addEventListener("change", function (event) {
+            if (event.target.checked) {
+              checkboxWrap.style.backgroundColor = "#0373ff";
+              checkboxWrap.style.border = "solid 1px #0373ff";
+              checkIcon.style.display = "flex";
+            } else {
+              checkboxWrap.style.backgroundColor = "transparent";
+              checkboxWrap.style.border = "solid 1px #5c6067";
+              checkIcon.style.display = "none";
+            }
+          });
+          checkBoxCell.appendChild(checkBox); // 체크박스를 셀에 추가
+
+          deptCell.innerHTML = item.dept;
+          positionCell.innerHTML = item.position;
+          nameCell.innerHTML = item.name;
+          etcCell.innerHTML = item.etc;
+
+          // 첫 번째 셀에 align="center" 특성 추가
+          if (row.cells[0]) {
+            row.cells[0].style.textAlign = "-webkit-center";
+            row.cells[0].style.verticalAlign = "middle";
+          }
+        });
+      }
+
+      //cctv 모달 닫기
+      function closeStatusPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        statusPopup.style.display = "none";
+      }
+
+      //햄버거 메뉴 오픈
+      function openSideMenu() {
+        var sideMenu = document.getElementById("side_menu");
+        if (sideMenu.getAttribute("style") == "display: flex;") {
+          sideMenu.style.display = "none";
+        } else {
+          sideMenu.style.display = "flex";
+        }
+      }
+
+      //메뉴 이동
+      function navMenu(menu) {
+        window.location.href = menu + ".html";
+      }
+
+      //클릭이벤트 버블링 막기
+      function stopBubbling(event) {
+        event.stopPropagation();
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

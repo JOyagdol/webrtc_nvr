@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: normal;
+  src: url("./fonts/SpoqaHanSansNeo-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  font-weight: normal;
+  src: url("./fonts/SpoqaHanSansNeo-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: normal;
+  src: url("./fonts/Pretendard-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "LibreBaskerville";
+  font-weight: normal;
+  src: url("./fonts/LibreBaskerville-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: normal;
+  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+}

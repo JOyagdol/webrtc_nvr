@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Third Eye</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="./resources/css/style_1920.css" />
+    <link rel="stylesheet" href="./resources/css/fonts.css" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </head>
+  <body>
+    <div class="page_container">
+      <div class="body">
+        <div class="main_container">
+          <div class="main_wrapper">
+            <div class="main_area">
+              <div class="header">
+                <div class="header_box">
+                  <!-- 햄버거 메뉴 버튼 -->
+                  <div class="side_menu_btn" onclick="openSideMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <img
+                    alt=""
+                    class="cursor"
+                    src="./resources/img/common/header_logo.png"
+                    onclick="navMenu('over')"
+                  />
+                  <div class="header_duration">
+                    <img alt="" src="./resources/img/common/clock.png" />
+                    <div class="duration_label">남은시간</div>
+                    <div class="duration_value">59:31</div>
+                  </div>
+                </div>
+
+                <!-- 헤더 메뉴 리스트 -->
+                <div class="header_box">
+                  <div id="menu_over" class="menu" onclick="navMenu('over')">
+                    Overview
+                  </div>
+                  <div id="menu_live" class="menu" onclick="navMenu('live')">
+                    Live view
+                  </div>
+                  <div id="menu_dot" class="menu" onclick="navMenu('dot')">
+                    Dot view
+                  </div>
+                </div>
+
+                <!-- 헤더 우측 날씨 및 온도 영역 -->
+                <div class="header_box">
+                  <div class="weather_wrap">
+                    <img alt="" src="./resources/img/common/weather.png" />
+
+                    <div class="temperature_wrap">
+                      <div class="temperature_label">온도</div>
+                      <div class="temperature_value"><span>25</span>℃</div>
+                    </div>
+
+                    <span></span>
+
+                    <div class="humidity_wrap">
+                      <div class="humidity_label">습도</div>
+                      <div class="humidity_value"><span>30</span>%</div>
+                    </div>
+                  </div>
+                  <div class="datetime"></div>
+                  <div class="profile_btn">
+                    <img alt="" src="./resources/img/common/profile.png" />
+                  </div>
+                </div>
+              </div>
+
+              <div id="side_menu">
+                <div class="side_menu_title">Menu</div>
+                <div class="side_menu_item" onclick="navMenu('over')">
+                  <img alt="" src="./resources/img/common/home.png" />
+                  <span>Home 실시간 영상</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('video')">
+                  <img alt="" src="./resources/img/common/video.png" />
+                  <span>영상 조회</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('log')">
+                  <img alt="" src="./resources/img/common/log.png" />
+                  <span>이벤트 감지 내역</span>
+                </div>
+                <div class="side_menu_item">
+                  <img alt="" src="./resources/img/common/setting.png" />
+                  <span>설정 및 관리</span>
+                </div>
+              </div>
+              <div
+                id="overview_emergency_status_popup"
+                onclick="stopBubbling(event)"
+              >
+                <div class="overview_emergency_status_popup_container">
+                  <div class="overview_emergency_status_popup_header">
+                    <div class="overview_emergency_status_popup_title">
+                      상황 보고
+                    </div>
+                    <div
+                      class="overview_emergency_status_popup_close_btn"
+                      onclick="closeStatusPopup()"
+                    >
+                      <img alt="" src="./resources/img/common/close.png" />
+                    </div>
+                  </div>
+
+                  <table
+                    class="status_popup_table table table-hover table-bordered"
+                  >
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">소속</th>
+                        <th scope="col">직급</th>
+                        <th scope="col">성명</th>
+                        <th scope="col">비고</th>
+                      </tr>
+                    </thead>
+                    <tbody id="status_popup_tbody"></tbody>
+                  </table>
+
+                  <div class="status_report_wrap">
+                    <div class="status_report_header">보고 내용</div>
+
+                    <textarea
+                      class="status_report_textarea"
+                      placeholder="보고 내용을 입력해 주세요."
+                      re
+                    ></textarea>
+                  </div>
+
+                  <div class="status_report_footer">
+                    <button class="status_report_button">보고 하기</button>
+                  </div>
+                </div>
+              </div>
+              <div id="log_contents">
+                <div class="video_title">이벤트 감지 내역</div>
+                <div class="video_filter_wrap">
+                  <div class="video_filter_select_wrap">
+                    <div class="video_filter_label">검색 구분</div>
+                    <div class="video_filter_select_list">
+                      <select class="form-select">
+                        <option selected>전체</option>
+                      </select>
+                      <select class="form-select">
+                        <option selected>카메라명</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="video_filter_datetime_wrap">
+                    <div class="video_filter_label">검색 시간</div>
+                    <div class="video_filter_date_range_start">
+                      <input
+                        class="video_filter_start_date"
+                        type="date"
+                        value="2024-01-31"
+                      />
+
+                      <input
+                        class="video_filter_start_time"
+                        type="time"
+                        value="07:30:00"
+                      />
+                    </div>
+                    <span>~</span>
+                    <div class="video_filter_date_range_end">
+                      <input
+                        class="video_filter_end_date"
+                        type="date"
+                        value="2024-01-31"
+                      />
+
+                      <input
+                        class="video_filter_end_time"
+                        type="time"
+                        value="13:40:00"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="log_filter_check_wrap">
+                    <div
+                      class="log_filter_check_item"
+                      onclick="clickCheckbox('all')"
+                    >
+                      <label for="filter_all_chkbox">
+                        <div class="filter_label all">
+                          <img
+                            class="filter_icon all"
+                            alt=""
+                            src="./resources/img/common/check.png"
+                          />
+                        </div>
+                      </label>
+                      <input
+                        id="filter_all_chkbox"
+                        type="checkbox"
+                        name="all"
+                        checked
+                        class="filter_chckbox_input"
+                      />
+                      <div class="filter_name">전체</div>
+                    </div>
+
+                    <div
+                      class="log_filter_check_item"
+                      onclick="clickCheckbox('fire')"
+                    >
+                      <label for="filter_fire_chkbox">
+                        <div class="filter_label fire">
+                          <img
+                            class="filter_icon fire"
+                            alt=""
+                            src="./resources/img/common/check.png"
+                          />
+                        </div>
+                      </label>
+                      <input
+                        id="filter_fire_chkbox"
+                        type="checkbox"
+                        name="fire"
+                        class="filter_chckbox_input"
+                      />
+                      <div class="filter_name">화재</div>
+                    </div>
+
+                    <div
+                      class="log_filter_check_item"
+                      onclick="clickCheckbox('invade')"
+                    >
+                      <label for="filter_invade_chkbox">
+                        <div class="filter_label invade">
+                          <img
+                            class="filter_icon invade"
+                            alt=""
+                            src="./resources/img/common/check.png"
+                          />
+                        </div>
+                      </label>
+                      <input
+                        id="filter_invade_chkbox"
+                        type="checkbox"
+                        name="invade"
+                        class="filter_chckbox_input"
+                      />
+                      <div class="filter_name">침입</div>
+                    </div>
+                    <div
+                      class="log_filter_check_item"
+                      onclick="clickCheckbox('camera')"
+                    >
+                      <label for="filter_camera_chkbox">
+                        <div class="filter_label camera">
+                          <img
+                            class="filter_icon camera"
+                            alt=""
+                            src="./resources/img/common/check.png"
+                          />
+                        </div>
+                      </label>
+                      <input
+                        id="filter_camera_chkbox"
+                        type="checkbox"
+                        name="camera"
+                        class="filter_chckbox_input"
+                      />
+                      <div class="filter_name">카메라 파손</div>
+                    </div>
+                  </div>
+
+                  <button class="vidoe_filter_btn">조회</button>
+                </div>
+
+                <div class="log_contents_wrap">
+                  <div class="log_list_container">
+                    <div class="log_list_item">
+                      <div class="log_list_info_wrap">
+                        <img alt="" src="./resources/img/common/log_thumbnail.png" />
+                        <div class="log_list_place_info">
+                          <div class="log_list_place">
+                            산학관 2층 휴게1실내부
+                          </div>
+                          <div class="log_list_camera">F-2-1000</div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_time_label">감지 시간</div>
+
+                        <div class="log_list_event_time">
+                          2024-01-31 07:48:00
+                        </div>
+                        <div class="log_list_event_duration">
+                          ( 총 00:28:37 )
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_type">
+                          <div class="log_list_event_type_label">구분</div>
+                          <div class="log_list_event_type_value">화재</div>
+                        </div>
+                        <div class="log_list_detail_btn">상세 보기</div>
+                      </div>
+                    </div>
+                    <div class="log_list_item">
+                      <div class="log_list_info_wrap">
+                        <img alt="" src="./resources/img/common/log_thumbnail.png" />
+                        <div class="log_list_place_info">
+                          <div class="log_list_place">
+                            산학관 2층 민원실 내부
+                          </div>
+                          <div class="log_list_camera">F-2-1020</div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_time_label">감지 시간</div>
+                        <div class="log_list_event_time">
+                          2024-01-31 07:48:00
+                        </div>
+                        <div class="log_list_event_duration">
+                          ( 총 00:28:37 )
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_type">
+                          <div class="log_list_event_type_label">구분</div>
+                          <div class="log_list_event_type_value">화재</div>
+                        </div>
+                        <div class="log_list_detail_btn">상세 보기</div>
+                      </div>
+                    </div>
+                    <div class="log_list_item">
+                      <div class="log_list_info_wrap">
+                        <img alt="" src="./resources/img/common/log_thumbnail.png" />
+                        <div class="log_list_place_info">
+                          <div class="log_list_place">인문관 1층 로비 정면</div>
+                          <div class="log_list_camera">F-3-1000</div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_time_label">감지 시간</div>
+                        <div class="log_list_event_time">
+                          2024-01-31 07:48:00
+                        </div>
+                        <div class="log_list_event_duration">
+                          ( 총 00:28:37 )
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_type">
+                          <div class="log_list_event_type_label">구분</div>
+                          <div class="log_list_event_type_value">화재</div>
+                        </div>
+                        <div class="log_list_detail_btn">상세 보기</div>
+                      </div>
+                    </div>
+                    <div class="log_list_item">
+                      <div class="log_list_info_wrap">
+                        <img alt="" src="./resources/img/common/log_thumbnail.png" />
+                        <div class="log_list_place_info">
+                          <div class="log_list_place">중앙도서관 후문</div>
+                          <div class="log_list_camera">F-A-1000</div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_time_label">감지 시간</div>
+                        <div class="log_list_event_time">
+                          2024-01-31 07:48:00
+                        </div>
+                        <div class="log_list_event_duration">
+                          ( 총 00:28:37 )
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_type">
+                          <div class="log_list_event_type_label">구분</div>
+                          <div class="log_list_event_type_value">화재</div>
+                        </div>
+                        <div class="log_list_detail_btn">상세 보기</div>
+                      </div>
+                    </div>
+                    <div class="log_list_item">
+                      <div class="log_list_info_wrap">
+                        <img alt="" src="./resources/img/common/log_thumbnail.png" />
+                        <div class="log_list_place_info">
+                          <div class="log_list_place">본관 3층 기획처 앞</div>
+                          <div class="log_list_camera">F-1-3005</div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_time_label">감지 시간</div>
+                        <div class="log_list_event_time">
+                          2024-01-31 07:48:00
+                        </div>
+                        <div class="log_list_event_duration">
+                          ( 총 00:28:37 )
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="log_list_info_wrap">
+                        <div class="log_list_event_type">
+                          <div class="log_list_event_type_label">구분</div>
+                          <div class="log_list_event_type_value">화재</div>
+                        </div>
+                        <div class="log_list_detail_btn">상세 보기</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="log_detail_container">
+                    <div class="log_detail_info_wrap">
+                      <div class="log_video_player">
+                        <video src="./resources/movies/waterfall.mp4" controls></video>
+                      </div>
+                      <div class="log_detail_info">
+                        <div class="log_deatil_contents">
+                          <div class="log_deatil_title">
+                            산학관 2층 휴게1실내부
+                          </div>
+                          <div class="log_detail_info_list">
+                            <div class="log_detail_info_item">
+                              <img
+                                alt=""
+                                src="./resources/img/common/person_min.png"
+                              />
+                              <div class="log_detail_info_value">2</div>
+                            </div>
+                            <div class="log_detail_info_item">
+                              <div class="log_detail_info_label">온도</div>
+                              <div class="log_detail_info_value">25 ℃</div>
+                            </div>
+                            <div class="log_detail_info_item">
+                              <div class="log_detail_info_label">습도</div>
+                              <div class="log_detail_info_value">30%</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="log_detail_info_btn_area">
+                          <img alt="" src="./resources/img/common/visible_btn.png" />
+                          <img alt="" src="./resources/img/common/share_btn.png" />
+                          <img
+                            alt=""
+                            src="./resources/img/common/full_screen_btn.png"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="log_deatail_footer">
+                      <div
+                        class="log_detail_footer_btn"
+                        onclick="openStatusPopup()"
+                      >
+                        유관기관 신고
+                      </div>
+                      <div class="log_detail_footer_btn">상황보고</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // var checkboxAll = document.querySelector("#filter_all_chkbox");
+      // var checkIconAll = document.querySelector(".filter_icon.all");
+      // var checkboxContainerAll = document.querySelector(".filter_label.all");
+
+      // checkbox.addEventListener("change", function () {
+      //   if (checkbox.checked) {
+      //     checkboxContainer.style.backgroundColor = "#0373ff";
+      //     checkboxContainer.style.border = "solid 1px #0373ff";
+      //     checkIcon.style.display = "block";
+      //   } else {
+      //     checkboxContainer.style.backgroundColor = "transparent";
+      //     checkboxContainer.style.border = "solid 1px #c0c0c0";
+      //     checkIcon.style.display = "none";
+      //   }
+      // });
+
+      function clickCheckbox(type) {
+        var checkbox = document.querySelector("#filter_" + type + "_chkbox");
+        var checkIcon = document.querySelector(".filter_icon." + type);
+        var checkboxContainer = document.querySelector(".filter_label." + type);
+        checkbox.addEventListener("change", function () {
+          if (checkbox.checked) {
+            var checkboxInputList = document.querySelectorAll(
+              ".filter_chckbox_input"
+            );
+            checkboxInputList.forEach(function (checkboxInput) {
+              if (checkboxInput.id != "filter_" + type + "_chkbox") {
+                var unCheckContainer = document.querySelector(
+                  ".filter_label." + checkboxInput.name
+                );
+                var unCheckIcon = document.querySelector(
+                  ".filter_icon." + checkboxInput.name
+                );
+                unCheckContainer.style.backgroundColor = "transparent";
+                unCheckContainer.style.border = "solid 1px #fff";
+                unCheckIcon.style.display = "none";
+                checkboxInput.checked = false;
+              }
+            });
+            checkbox.checked = true;
+            checkboxContainer.style.backgroundColor = "#0373ff";
+            checkboxContainer.style.border = "solid 1px #0373ff";
+            checkIcon.style.display = "block";
+          } else {
+            checkbox.checked = false;
+            checkboxContainer.style.backgroundColor = "transparent";
+            checkboxContainer.style.border = "solid 1px #fff";
+            checkIcon.style.display = "none";
+          }
+        });
+      }
+
+      function dateTime() {
+        var now = dayjs();
+
+        // Format the date and time
+        var formattedDateTime = now.format("YYYY-MM-DD HH:mm:ss");
+
+        document.querySelector(".datetime").innerHTML = formattedDateTime;
+      }
+      // Update time initially
+      dateTime();
+
+      // Update time every second (1000 milliseconds)
+      setInterval(dateTime, 1000);
+      function changeView(view) {
+        // 모든 탭 숨기기
+        var tabContents = document.querySelectorAll(".menu");
+
+        tabContents.forEach(function (tabContent) {
+          if (tabContent.id === view) {
+            tabContent.classList.add("active");
+          } else {
+            tabContent.classList.remove("active");
+            // 클릭한 탭 보이기
+            var selectedTab = document.getElementById("menu_" + view);
+            if (selectedTab) {
+              selectedTab.classList.add("active");
+            }
+          }
+        });
+      }
+
+      function openSideMenu() {
+        var sideMenu = document.getElementById("side_menu");
+        if (sideMenu.getAttribute("style") == "display: flex;") {
+          sideMenu.style.display = "none";
+        } else {
+          sideMenu.style.display = "flex";
+        }
+      }
+
+      function navMenu(menu) {
+        window.location.href = menu + ".html";
+      }
+
+      //위험 상황 보고 모달
+      function openStatusPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        var tableBody = document.getElementById("status_popup_tbody");
+        tableBody.innerHTML = "";
+
+        var dataArray = [
+          {
+            id: 1,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "홍길동",
+            etc: "-",
+          },
+          {
+            id: 2,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "김길동",
+            etc: "-",
+          },
+          {
+            id: 3,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "박길동",
+            etc: "-",
+          },
+          {
+            id: 4,
+            dept: "관리처 안전관리팀",
+            position: "관리팀장",
+            name: "황길동",
+            etc: "-",
+          },
+          {
+            id: 5,
+            dept: "관리처 안전관리팀",
+            position: "사무처장",
+            name: "이길동",
+            etc: "-",
+          },
+        ];
+        statusPopup.style.display = "flex";
+
+        dataArray.forEach(function (item) {
+          var row = tableBody.insertRow();
+          var checkBoxCell = row.insertCell(0); // 체크박스를 추가할 셀
+          var deptCell = row.insertCell(1);
+          var positionCell = row.insertCell(2);
+          var nameCell = row.insertCell(3);
+          var etcCell = row.insertCell(4);
+
+          var label = document.createElement("label");
+          label.setAttribute("for", "checkbox_" + item.id); // label과 checkbox를 연결
+
+          var checkboxWrap = document.createElement("div");
+          checkboxWrap.className = "popup_checkbox";
+          label.appendChild(checkboxWrap); // 라벨을 셀에 추가
+
+          var checkIcon = document.createElement("img");
+          checkIcon.src = "./resources/img/common/check.png";
+          checkIcon.className = "popup_checkbox_icon";
+          checkboxWrap.appendChild(checkIcon);
+          checkBoxCell.appendChild(label); // 라벨을 셀에 추가
+
+          var checkBox = document.createElement("input");
+          checkBox.type = "checkbox";
+          checkBox.className = "custom-checkbox";
+          checkBox.id = "checkbox_" + item.id; // 각 체크박스에 고유한 ID 부여
+          checkBox.addEventListener("change", function (event) {
+            if (event.target.checked) {
+              checkboxWrap.style.backgroundColor = "#0373ff";
+              checkboxWrap.style.border = "solid 1px #0373ff";
+              checkIcon.style.display = "flex";
+            } else {
+              checkboxWrap.style.backgroundColor = "transparent";
+              checkboxWrap.style.border = "solid 1px #5c6067";
+              checkIcon.style.display = "none";
+            }
+          });
+          checkBoxCell.appendChild(checkBox); // 체크박스를 셀에 추가
+
+          deptCell.innerHTML = item.dept;
+          positionCell.innerHTML = item.position;
+          nameCell.innerHTML = item.name;
+          etcCell.innerHTML = item.etc;
+
+          // 첫 번째 셀에 align="center" 특성 추가
+          if (row.cells[0]) {
+            row.cells[0].style.textAlign = "-webkit-center";
+            row.cells[0].style.verticalAlign = "middle";
+          }
+        });
+      }
+      //cctv 모달 닫기
+      function closeStatusPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        statusPopup.style.display = "none";
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

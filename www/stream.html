@@ -25,38 +25,436 @@
     </style>
 </head>
 <body>
+    <div id="u_skip">
+		<a href="#content">본문바로가기</a>
+	</div>
+
+    <div id="wrap">
+        <header>
+            <div class="header_wrap">
+                <h1>Third Eye</h1>
+                <ul class="utilMenu">
+                	<li><a href="#" id="fullScreen" type="button" onClick="javascript:toggleFullScreen()"><span class="material-icons">fullscreen</span></a></li>
+                    <li><a href="#" class="btn_logout"><span class="material-icons-outlined">logout</span></a></li>
+                </ul>
+            </div>
+        </header>
+        <div id="container">
+            <nav class="lnb">
+            <ul>
+                <li><a href="dashboard.html" class="nav_menu01"><span>대시보드</span></a></li>
+                <li class="on"><a href="live.html" class="nav_menu02"><span>라이브뷰</span></a></li>
+                <li><a href="playback.html" class="nav_menu03"><span>재생</span></a></li>
+                <li><a href="event.html" class="nav_menu04"><span>감지내역</span></a></li>                
+            </ul>
+            </nav>
+            <div id="content" class="live">
+                <div class="title">
+                    <h2>라이브뷰</h2>
+                    <div class="view_dropdown">
+                        <div class="label">뷰 타입</div>
+                        <div class="custom-select">
+                            <select id="S_ARRANGE">
+                                <option value="1x1">1x1</option>
+                                <option value="2x2" selected>2x2</option>
+                                <option value="all">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="boardArea" class="camera_layout camera_2x2">
+                    <div class="camera">
+                        <div class="no_signal"><span class="material-icons-outlined">videocam_off</span>no signal</div>
+                        <div class="div_warning"><button id="popupButton">감시내용확인1</button></div>
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view">
+                            <video id="vid_html5_api" autoplay loop muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050105_001_output.mp4">
+                                <source src="./resources/movies/C050105_001_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera warning">
+                        <div class="div_warning"><button id="popupButton1" type="button">감시내용확인</button></div>
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re0">
+                            <video id="vid_html5_api" autoplay loop muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050105_003_output.mp4">
+                                <source src="./resources/movies/C050105_003_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>                        
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라3번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re1">
+                            <video id="vid_html5_api" autoplay loop muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050105_005_output.mp4">
+                                <source src="./resources/movies/C050105_005_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re2">
+                            <video id="vid_html5_api" autoplay loop muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050205_001_output.mp4">
+                                <source src="./resources/movies/C050205_001_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+
+
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050205_003_output.mp4">
+                                <source src="./resources/movies/C050205_003_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+
+
+                    <!-- 여기서 부터 수정 -->
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050205_005_output.mp4">
+                                <source src="./resources/movies/C050205_005_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C050305_003_output.mp4">
+                                <source src="./resources/movies/C050305_003_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C051105_002_output.mp4">
+                                <source src="./resources/movies/C051105_002_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C052105_004_output.mp4">
+                                <source src="./resources/movies/C052105_004_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C052105_006_output.mp4">
+                                <source src="./resources/movies/C052105_006_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C052205_004_output.mp4">
+                                <source src="./resources/movies/C052205_004_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C054105_004_output.mp4">
+                                <source src="./resources/movies/C054105_004_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C054205_004_output.mp4">
+                                <source src="./resources/movies/C054205_004_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C054305_004_output.mp4">
+                                <source src="./resources/movies/C054305_004_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C055105_002_output.mp4">
+                                <source src="./resources/movies/C055105_002_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C055205_002_output.mp4">
+                                <source src="./resources/movies/C055205_002_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C055305_002_output.mp4">
+                                <source src="./resources/movies/C055305_002_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C058105_003_output.mp4">
+                                <source src="./resources/movies/C058105_003_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C058205_001_output.mp4">
+                                <source src="./resources/movies/C058205_001_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="camera">
+                        <div class="camera_info">
+                            <h3>카메라1번 / 1층 정문</h3>
+                            <div class="buttons">
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">file_download</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">photo_camera</span></button>
+                                <button type="button" class="btn_camera"><span class="material-icons-outlined">warning</span></button>
+                            </div>
+                        </div>
+                        <div class="rec_time">2023/05/15  10:36:24 AM</div>
+                        <div class="camera_view" id="re3">
+                            <video id="vid_html5_api" autoplay="" muted="muted" data-setup="{}" tabindex="-1" src="./resources/movies/C058305_001_output.mp4">
+                                <source src="./resources/movies/C058305_001_output.mp4" type="application/x-mpegURL">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer></footer>
+
+
+    
 <script type="module" src="./video-stream.js"></script>
 <script type="module">
-    const params = new URLSearchParams(location.search);
+    //const params = new URLSearchParams(location.search);
+    
+    //const streams = params.getAll("src");
+    //console.log(streams)
+    //const modes = params.getAll("mode");
+    //console.log(modes)
+    //if (modes.length === 0) modes.push("");
 
-    // support multiple streams and multiple modes
-    const streams = params.getAll("src");
-    const modes = params.getAll("mode");
-    if (modes.length === 0) modes.push("");
+    //while (modes.length > streams.length) {
+    //    streams.push(streams[0]);
+    //}
+    //while (streams.length > modes.length) {
+    //    modes.push(modes[0]);
+    //}
 
-    while (modes.length > streams.length) {
-        streams.push(streams[0]);
-    }
-    while (streams.length > modes.length) {
-        modes.push(modes[0]);
-    }
+    //if (streams.length > 1) {
+    //    document.body.className = "flex";
+    //}
 
-    if (streams.length > 1) {
-        document.body.className = "flex";
-    }
+    //const background = params.get("background") !== "false";
+    //const width = "1 0 " + (params.get("width") || "720px");
 
-    const background = params.get("background") !== "false";
-    const width = "1 0 " + (params.get("width") || "620px");
+    //for (let i = 0; i < streams.length; i++) {
+    //    /** @type {VideoStream} */
+    //    const video = document.createElement("video-stream");
+    //    var camera_view = document.getElementById(streams[i]);
+    //    video.background = background;
+    //    video.mode = modes[i] || video.mode;
+    //    video.style.flex = width;
+    //    video.src = new URL("api/ws?src=" + encodeURIComponent(streams[i]), location.href);
+    //    //document.body.appendChild(video);
+    //    console.log(camera_view, streams[i])
+    //   camera_view.appendChild(video);
+    //}
+    //setInterval(function(){
 
-    for (let i = 0; i < streams.length; i++) {
-        /** @type {VideoStream} */
-        const video = document.createElement("video-stream");
-        video.background = background;
-        video.mode = modes[i] || video.mode;
-        video.style.flex = width;
-        video.src = new URL("api/ws?src=" + encodeURIComponent(streams[i]), location.href);
-        document.body.appendChild(video);
-    }
-</script>
+    //},1000);
+    const u = new URL('http://10.3.128.40:80/fire')
+        fetch(u)
+        .then(res => res.json())
+        .then(data => {
+            for (var key in data) {
+                if(key == 'DONGA_TEST_NX_DS6.2_CAM0') {
+                    var vi = document.getElementById('re0');
+                    
+                    var dInfo = data[key][0]['fireDetectionModule']['detectionInfo']; 
+                    console.log(data[key]);
+                    for (const item of dInfo) {
+                        var dBox = document.createElement('div');
+                        vi.appendChild(dBox);
+                    }
+                    
+                }
+            }
+        });
+    </script>
 </body>
 </html>

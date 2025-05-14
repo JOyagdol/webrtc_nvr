@@ -7,4 +7,8 @@ go2rtc.yaml
 
 go2rtc.json
 
+
 record/
+
+movies/VMS_*
+movies/*_output.mp4

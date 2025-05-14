@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Third Eye</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="./resources/css/style_1920.css" />
+    <link rel="stylesheet" href="./resources/css/fonts.css" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </head>
+  <body>
+    <div class="page_container">
+      <div class="body">
+        <div class="login_container">
+          <div class="main_wrapper">
+            <div class="main_area">
+              <div class="header">
+                <!-- 로고 -->
+                <!-- <img
+                  class="header_bg"
+                  alt=""
+                  src="./resources/img/common/header.png"
+                /> -->
+                <div class="header_box">
+                  <!-- 햄버거 메뉴 버튼 -->
+                  <div class="side_menu_btn" onclick="openSideMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <img
+                    class="cursor"
+                    alt=""
+                    src="./resources/img/common/header_logo.png"
+                    onclick="navMenu('over')"
+                  />
+                  <div class="header_duration">
+                    <img alt="" src="./resources/img/common/clock.png" />
+                    <div class="duration_label">남은시간</div>
+                    <div class="duration_value">59:31</div>
+                  </div>
+                </div>
+
+                <!-- 헤더 메뉴 리스트 -->
+                <div class="header_box">
+                  <div id="menu_over" class="menu" onclick="navMenu('over')">
+                    Overview
+                  </div>
+                  <div
+                    id="menu_live"
+                    class="menu active"
+                    onclick="navMenu('live')"
+                  >
+                    Live view
+                  </div>
+                  <div id="menu_dot" class="menu" onclick="navMenu('dot')">
+                    Dot view
+                  </div>
+                </div>
+
+                <!-- 헤더 우측 날씨 및 온도 영역 -->
+                <div class="header_box">
+                  <div class="weather_wrap">
+                    <img alt="" src="./resources/img/common/weather.png" />
+
+                    <div class="temperature_wrap">
+                      <div class="temperature_label">온도</div>
+                      <div class="temperature_value"><span>25</span>℃</div>
+                    </div>
+
+                    <span></span>
+
+                    <div class="humidity_wrap">
+                      <div class="humidity_label">습도</div>
+                      <div class="humidity_value"><span>30</span>%</div>
+                    </div>
+                  </div>
+                  <div class="datetime"></div>
+                  <div class="profile_btn">
+                    <img alt="" src="./resources/img/common/profile.png" />
+                  </div>
+                </div>
+              </div>
+
+              <div id="side_menu">
+                <div class="side_menu_title">Menu</div>
+                <div class="side_menu_item" onclick="navMenu('over')">
+                  <img alt="" src="./resources/img/common/home.png" />
+                  <span>Home 실시간 영상</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('video')">
+                  <img alt="" src="./resources/img/common/video.png" />
+                  <span>영상 조회</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('log')">
+                  <img alt="" src="./resources/img/common/log.png" />
+                  <span>이벤트 감지 내역</span>
+                </div>
+                <div class="side_menu_item">
+                  <img alt="" src="./resources/img/common/setting.png" />
+                  <span>설정 및 관리</span>
+                </div>
+              </div>
+
+              <div id="live_contents">
+                <div
+                  id="overview_emergency_status_popup"
+                  onclick="stopBubbling(event)"
+                >
+                  <div class="overview_emergency_status_popup_container">
+                    <div class="overview_emergency_status_popup_header">
+                      <div class="overview_emergency_status_popup_title">
+                        상황 보고
+                      </div>
+                      <div
+                        class="overview_emergency_status_popup_close_btn"
+                        onclick="closeStatusPopup()"
+                      >
+                        <img alt="" src="./resources/img/common/close.png" />
+                      </div>
+                    </div>
+
+                    <table
+                      class="status_popup_table table table-hover table-bordered"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">소속</th>
+                          <th scope="col">직급</th>
+                          <th scope="col">성명</th>
+                          <th scope="col">비고</th>
+                        </tr>
+                      </thead>
+                      <tbody id="status_popup_tbody"></tbody>
+                    </table>
+
+                    <div class="status_report_wrap">
+                      <div class="status_report_header">보고 내용</div>
+
+                      <textarea
+                        class="status_report_textarea"
+                        placeholder="보고 내용을 입력해 주세요."
+                        re
+                      ></textarea>
+                    </div>
+
+                    <div class="status_report_footer">
+                      <button class="status_report_button">보고 하기</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="contents_area">
+                  <!-- <div id="live_page_all"> -->
+
+                  <div class="location_select_wrap">
+                    <select class="form-select">
+                      <option selected>산학관 S14동</option>
+                    </select>
+
+                    <div class="floor_list">
+                      <div class="floor" name="f7" onclick="changeFloor('f7')">
+                        F7
+                      </div>
+                      <div class="floor" name="f6" onclick="changeFloor('f6')">
+                        F6
+                      </div>
+                      <div class="floor" name="f5" onclick="changeFloor('f5')">
+                        F5
+                      </div>
+                      <div class="floor" name="f4" onclick="changeFloor('f4')">
+                        F4
+                      </div>
+                      <div class="floor" name="f3" onclick="changeFloor('f3')">
+                        F3
+                      </div>
+                      <div
+                        class="floor active"
+                        name="f2"
+                        onclick="changeFloor('f2')"
+                      >
+                        F2
+                      </div>
+                      <div class="floor" name="f1" onclick="changeFloor('f1')">
+                        F1
+                      </div>
+                      <div class="floor" name="b1" onclick="changeFloor('b1')">
+                        B1
+                      </div>
+                      <div class="floor" name="b2" onclick="changeFloor('b2')">
+                        B2
+                      </div>
+                      <div class="floor" name="b3" onclick="changeFloor('b3')">
+                        B3
+                      </div>
+                      <div class="floor" name="b4" onclick="changeFloor('b4')">
+                        B4
+                      </div>
+                      <div class="floor" name="b5" onclick="changeFloor('b5')">
+                        B5
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="live_main_container">
+                    <div class="live_header">
+                      <div class="live_view_btn_wrap">
+                        <div
+                          name="all"
+                          class="live_view_btn active"
+                          onclick="changeLiveViewType('all')"
+                        >
+                          전체
+                        </div>
+                        <div
+                          name="2x2"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('2x2')"
+                        >
+                          2 X 2
+                        </div>
+                        <div
+                          name="2x3"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('2x3')"
+                        >
+                          2 X 3
+                        </div>
+                        <div
+                          name="3x3"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('3x3')"
+                        >
+                          3 X 3
+                        </div>
+                        <div
+                          name="3x4"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('3x4')"
+                        >
+                          3 X 4
+                        </div>
+                        <div
+                          name="3x5"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('3x5')"
+                        >
+                          3 X 5
+                        </div>
+                        <div
+                          name="4x4"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('4x4')"
+                        >
+                          4 X 4
+                        </div>
+                        <div
+                          name="4x5"
+                          class="live_view_btn"
+                          onclick="changeLiveViewType('4x5')"
+                        >
+                          4 X 5
+                        </div>
+                      </div>
+                      <div class="search_box">
+                        <!-- <span>위치 검색</span> -->
+                        <input type="text" placeholder="위치 검색" />
+                        <img alt="" src="./resources/img/common/search.png" />
+                      </div>
+                    </div>
+
+                    <div id="live_page_all">
+                      <div class="live_cctv_list_area">
+                        <div class="live_select_cctv">
+                          <video
+                            src="./resources/movies/waterfall.mp4"
+                            controls
+                            width="498px"
+                            height="292px"
+                          ></video>
+                          <div class="live_page_item_info_wrap">
+                            <div class="live_page_item_info">
+                              <div class="live_page_item_info_title">
+                                신학관 2층 민원실 내부
+                              </div>
+                              <div class="live_page_item_info_status">
+                                <div class="live_page_item_info_status_item">
+                                  <img
+                                    alt=""
+                                    src="./resources/img/common/person_min.png"
+                                  />
+                                  <div
+                                    class="live_page_item_info_status_item_value"
+                                  >
+                                    7
+                                  </div>
+                                </div>
+                                <div class="live_page_item_info_status_item">
+                                  <div
+                                    class="live_page_item_info_status_item_label"
+                                  >
+                                    온도
+                                  </div>
+                                  <div
+                                    class="live_page_item_info_status_item_value"
+                                  >
+                                    25℃
+                                  </div>
+                                </div>
+                                <div class="live_page_item_info_status_item">
+                                  <div
+                                    class="live_page_item_info_status_item_label"
+                                  >
+                                    습도
+                                  </div>
+                                  <div
+                                    class="live_page_item_info_status_item_value"
+                                  >
+                                    30%
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="live_page_item_btn_area">
+                              <img
+                                alt=""
+                                src="./resources/img/common/visible_btn.png"
+                              />
+                              <img
+                                alt=""
+                                src="./resources/img/common/share_btn.png"
+                              />
+                              <img
+                                alt=""
+                                src="./resources/img/common/full_screen_btn.png"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="live_cctv_list">
+                          <div class="live_cctv_list_item select">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light danger">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 민원실 앞
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_1.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 휴게1실 좌측
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_2.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 로비 전경
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_3.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 휴게1실 우측
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_4.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 휴게1실 내부
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_5.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 민원실 안
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_6.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 휴게2실 전경
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_7.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 휴게2실 앞
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_8.png"
+                            />
+                          </div>
+                          <div class="live_cctv_list_item">
+                            <div class="live_cctv_list_item_header">
+                              <div class="live_cctv_list_item_title_wrap">
+                                <div class="live_cctv_list_item_light">
+                                  <span></span>
+                                </div>
+                                <div class="live_cctv_list_item_title">
+                                  2층 민원실 뒤
+                                </div>
+                              </div>
+                              <div class="live_cctv_list_item_camera">
+                                f210_1
+                              </div>
+                            </div>
+                            <img
+                              alt=""
+                              src="./resources/img/common/thumbnail_9.png"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="live_building_floor_plan_area">
+                        <canvas
+                          id="live_building_canvas"
+                          width="790px"
+                          height="808px"
+                        >
+                          <div id="live_fire_alarm_popup">
+                            <div class="live_fire_alarm_wrap">
+                              <div class="live_fire_alarm_wrap_title">
+                                Fire alarm
+                              </div>
+                              <div class="live_fire_alarm_contents">
+                                <div class="live_fire_alarm_text_wrap">
+                                  <div class="live_fire_alarm_date">
+                                    March 2, 2024
+                                  </div>
+                                  <div class="live_fire_alarm_title">
+                                    Flame detected 6.54
+                                  </div>
+                                </div>
+                                <div class="live_fire_alarm_detect">
+                                  <div class="live_fire_alarm_detect_item">
+                                    <div
+                                      class="live_fire_alarm_detect_item_title"
+                                    >
+                                      <img
+                                        alt=""
+                                        src="./resources/img/common/detect_fire.png"
+                                      />
+                                      <div
+                                        class="live_fire_alarm_detect_item_label"
+                                      >
+                                        불꽃 감지
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="live_fire_alarm_detect_item_value"
+                                    >
+                                      850
+                                    </div>
+                                  </div>
+                                  <div class="live_fire_alarm_detect_item">
+                                    <div
+                                      class="live_fire_alarm_detect_item_title"
+                                    >
+                                      <img
+                                        alt=""
+                                        src="./resources/img/common/detect_smoke.png"
+                                      />
+                                      <div
+                                        class="live_fire_alarm_detect_item_label"
+                                      >
+                                        연기 감지
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="live_fire_alarm_detect_item_value"
+                                    >
+                                      350
+                                    </div>
+                                  </div>
+                                  <div class="live_fire_alarm_detect_item">
+                                    <div
+                                      class="live_fire_alarm_detect_item_title"
+                                    >
+                                      <img
+                                        alt=""
+                                        src="./resources/img/common/detect_person.png"
+                                      />
+                                      <div
+                                        class="live_fire_alarm_detect_item_label"
+                                      >
+                                        사람 감지
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="live_fire_alarm_detect_item_value"
+                                    >
+                                      24
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="live_fire_alarm_arrow">
+                                <div
+                                  class="live_fire_alarm_arrow_vertical"
+                                ></div>
+                                <div class="live_fire_alarm_arrow_horizon">
+                                  <span></span>
+                                  <div class="live_fire_alarm_circle">
+                                    <div>
+                                      <div></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> -->
+                            </div>
+                          </div>
+                        </canvas>
+
+                        <div class="floating_info_wrap">
+                          <div class="location_name">산학관 S14동</div>
+                          <div class="location_address_wrap">
+                            <div class="location_address_icon">
+                              <img alt="" src="./resources/img/common/address.png" />
+                            </div>
+                            <div class="location_address">
+                              부산 남구 감만동 189-111
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 우상단 floating 버튼 -->
+                        <div class="float_btn_area_top">
+                          <div class="float_btn_wrap">
+                            <div class="share_button">
+                              <img alt="" src="./resources/img/common/share.png" />
+                            </div>
+                          </div>
+
+                          <div class="float_btn_wrap">
+                            <div class="view_btn">2D</div>
+                            <span></span>
+                            <div class="view_btn active">3D</div>
+                          </div>
+                        </div>
+
+                        <!-- 우하단 floating 버튼 -->
+                        <div class="float_btn_area_bottom">
+                          <!-- <div class="way_btn">
+                            <label for="way_chk_box">
+                              <div class="way_chk_box_label">
+                                <img
+                                  class="way_chk_box_icon"
+                                  alt=""
+                                  src="./resources/img/common/check.png"
+                                />
+                              </div>
+                            </label>
+                            <input id="way_chk_box" type="checkbox" />
+                            <div class="way_btn_text">소방진입로</div>
+                          </div> -->
+
+                          <div class="float_btn_wrap">
+                            <div
+                              class="full_screen_btn"
+                              onclick="stopBubbling(event)"
+                            >
+                              <img
+                                alt=""
+                                src="./resources/img/common/full_screen.png"
+                              />
+                            </div>
+                            <div class="resolution_btn_area">
+                              <div
+                                class="resolution_btn cursor"
+                                onclick="stopBubbling(event)"
+                              >
+                                +
+                              </div>
+                              <span></span>
+                              <div
+                                class="resolution_btn cursor"
+                                onclick="stopBubbling(event)"
+                              >
+                                <img alt="" src="./resources/img/common/minus.png" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="live_page"></div>
+                  </div>
+                  <!-- </div> -->
+                </div>
+                <div id="live_all_sidebar" class="sidebar">
+                  <div class="status_box">
+                    <div class="status_title">화재 관련 센서상태</div>
+                    <div class="status_chart_wrap">
+                      <img alt="" src="./resources/img/common/chart_danger.png" />
+                      <div class="status_chart_text">
+                        <div class="status_chart_label">Danger</div>
+                        <div class="status_chart_value"><span>60</span>%</div>
+                      </div>
+                    </div>
+
+                    <div class="status_list">
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Total</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>100</span>%
+                          </div>
+                          <div class="status_info_cnt">100 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Normal</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>10</span>%
+                          </div>
+                          <div class="status_info_cnt">10 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Warning</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>30</span>%
+                          </div>
+                          <div class="status_info_cnt">30 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Danger</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>60</span>%
+                          </div>
+                          <div class="status_info_cnt">60 대</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="status_box">
+                    <div class="status_title">공간 상세 현황</div>
+                    <div class="place_detail_status_list"></div>
+                  </div>
+
+                  <div class="sidebar_btn_wrap">
+                    <button onclick="openStatusPopup()">유관기관 신고</button>
+                    <button>상황 보고</button>
+                  </div>
+                </div>
+                <div id="live_2x2_sidebar" class="sidebar">
+                  <div class="status_box">
+                    <div class="status_title">화재 관련 센서상태</div>
+                    <div class="status_chart_wrap">
+                      <img alt="" src="./resources/img/common/chart_danger.png" />
+                      <div class="status_chart_text">
+                        <div class="status_chart_label">Danger</div>
+                        <div class="status_chart_value"><span>60</span>%</div>
+                      </div>
+                    </div>
+
+                    <div class="status_list">
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Total</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>100</span>%
+                          </div>
+                          <div class="status_info_cnt">100 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Normal</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>10</span>%
+                          </div>
+                          <div class="status_info_cnt">10 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Warning</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>30</span>%
+                          </div>
+                          <div class="status_info_cnt">30 대</div>
+                        </div>
+                      </div>
+                      <div class="status_info_item">
+                        <div class="status_info_label">
+                          <span></span>
+                          <div class="status_info_title">Danger</div>
+                        </div>
+                        <div class="status_info_value">
+                          <div class="status_info_percent">
+                            <span>60</span>%
+                          </div>
+                          <div class="status_info_cnt">60 대</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sidebar_alarm_list_wrap">
+                    <div class="dot_sidebar_label">열 감지 현황</div>
+                    <div class="dot_sidebar_alarm_list"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var parent = document.querySelector(".live_building_floor_plan_area");
+      var canvas = document.getElementById("live_building_canvas");
+      var ctx = canvas.getContext("2d");
+
+      // 부모 요소의 크기에 따라 캔버스 크기를 동적으로 설정합니다.
+      function resizeCanvas() {
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+      }
+
+      function drawImageToCanvas() {
+        var image = new Image();
+        image.onload = function () {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          // 이미지를 캔버스의 크기에 맞게 스케일링하여 그립니다.
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+          canvas.addEventListener("click", function (event) {
+            var div = document.getElementById("live_fire_alarm_popup");
+            if (div.style.display == "flex") {
+              div.style.display = "none";
+            } else {
+              // Canvas 내의 마우스 좌표를 계산합니다.
+              var rect = canvas.getBoundingClientRect();
+              var mouseX = event.clientX - rect.left;
+              var mouseY = event.clientY - rect.top;
+
+              // 클릭한 위치에 div를 생성합니다.
+              div.style.display = "flex";
+              // div.style.left = mouseX - 52 - 39 + "px";
+              // div.style.top = mouseY - 264 - 83 + "px";
+              div.style.left = "170px";
+              div.style.top = "160px";
+              // 생성된 div를 Canvas의 부모 요소에 추가합니다.
+              canvas.parentNode.appendChild(div);
+            }
+          });
+        };
+        // 이미지 경로를 설정합니다. 적절한 이미지 경로로 변경하세요.
+        image.src = "./resources/img/common/building.png";
+      }
+
+      // 초기화 함수
+      function init() {
+        // 캔버스 크기를 설정합니다.
+        resizeCanvas();
+
+        drawImageToCanvas();
+      }
+
+      // 초기화 함수 호출
+      init();
+
+      // 윈도우 크기가 변경될 때마다 캔버스 크기를 조정합니다.
+      window.addEventListener("resize", function () {
+        resizeCanvas();
+
+        drawImageToCanvas();
+      });
+
+      function dateTime() {
+        var now = dayjs();
+
+        // Format the date and time
+        var formattedDateTime = now.format("YYYY-MM-DD HH:mm:ss");
+
+        document.querySelector(".datetime").innerHTML = formattedDateTime;
+      }
+      // Update time initially
+      dateTime();
+
+      //뷰타입에 따른 아이템 갯수
+      function viewItemCnt(type) {
+        switch (type) {
+          case "2x2":
+            return 4;
+          case "2x3":
+            return 6;
+          case "3x3":
+            return 9;
+          case "3x4":
+            return 12;
+          case "3x5":
+            return 15;
+          case "4x4":
+            return 16;
+          case "4x5":
+            return 20;
+          default:
+            break;
+        }
+      }
+
+      var viewList = [
+        {
+          id: 1,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 2,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 3,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 4,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 5,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 6,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 7,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 8,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 9,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+        {
+          id: 10,
+          video: "./resources/movies/waterfall.mp4",
+          title: "산학관 2층 휴게1실내부 ",
+          person: 2,
+          temp: "25",
+          hum: "30",
+        },
+      ];
+
+      // Update time every second (1000 milliseconds)
+      setInterval(dateTime, 1000);
+
+      function changeFloor(floor) {
+        var floorBtn = document.querySelectorAll(".floor");
+        floorBtn.forEach(function (btn) {
+          if (floor == btn.getAttribute("name")) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+
+      //뷰 타입 변경 이벤트
+      function changeLiveViewType(type) {
+        var liveAll = document.getElementById("live_page_all");
+        var livePage = document.querySelector(".live_page");
+        var liveBtn = document.querySelectorAll(".live_view_btn");
+
+        //버튼 액티브 효과
+        liveBtn.forEach(function (btn) {
+          if (type == "all") {
+            if (type == btn.getAttribute("name")) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+              livePage.classList.remove("grid_" + btn.getAttribute("name"));
+            }
+            liveAll.style.display = "flex";
+          } else {
+            liveAll.style.display = "none";
+            if (type == btn.getAttribute("name")) {
+              btn.classList.add("active");
+              livePage.classList.add("grid_" + type);
+            } else {
+              btn.classList.remove("active");
+              if (
+                livePage.classList.contains("grid_" + btn.getAttribute("name"))
+              ) {
+                livePage.classList.remove("grid_" + btn.getAttribute("name"));
+              }
+            }
+          }
+        });
+
+        //뷰 타입에 따른 페이지 출력 비율 변경
+        if (type == "all") {
+          livePage.innerHTML = "";
+        } else {
+          livePage.innerHTML = "";
+
+          if (viewList.length > viewItemCnt(type)) {
+            viewList.slice(0, viewItemCnt(type)).forEach(function (data) {
+              var pageElement = createPageElement(data);
+              livePage.appendChild(pageElement);
+            });
+          } else {
+            viewList.forEach(function (data) {
+              var pageElement = createPageElement(data);
+              livePage.appendChild(pageElement);
+            });
+          }
+        }
+
+        //사이드바 생성
+        var liveAllSidebar = document.getElementById("live_all_sidebar");
+        var live2x2Sidebar = document.getElementById("live_2x2_sidebar");
+
+        if (type == "all") {
+          liveAllSidebar.style.display = "flex";
+          live2x2Sidebar.style.display = "none";
+          var listBody = document.querySelector(".place_detail_status_list");
+          var statusList = [
+            {
+              id: 1,
+              type: "danger",
+              name: "2층 로비 뒤",
+              cameraCnt: 6,
+              cameraTotal: 6,
+              person: 5,
+            },
+            {
+              id: 2,
+              type: "danger",
+              name: "2층 민원실 앞",
+              cameraCnt: 3,
+              cameraTotal: 6,
+              person: 2,
+            },
+            {
+              id: 3,
+              type: "safe",
+              name: "2층 휴게1실 좌측",
+              cameraCnt: 4,
+              cameraTotal: 6,
+              person: 0,
+            },
+            {
+              id: 4,
+              type: "safe",
+              name: "2층 로비 전경",
+              cameraCnt: 3,
+              cameraTotal: 6,
+              person: 5,
+            },
+            {
+              id: 5,
+              type: "safe",
+              name: "2층 휴게1실 우측",
+              cameraCnt: 2,
+              cameraTotal: 6,
+              person: 1,
+            },
+            {
+              id: 6,
+              type: "safe",
+              name: "2층 휴게1실 내부",
+              cameraCnt: 2,
+              cameraTotal: 6,
+              person: 1,
+            },
+            {
+              id: 7,
+              type: "safe",
+              name: "2층 민원실 안",
+              cameraCnt: 2,
+              cameraTotal: 6,
+              person: 2,
+            },
+            {
+              id: 8,
+              type: "safe",
+              name: "2층 휴게2실 전경",
+              cameraCnt: 1,
+              cameraTotal: 6,
+              person: 2,
+            },
+            {
+              id: 9,
+              type: "safe",
+              name: "2층 휴게2실 앞",
+              cameraCnt: 2,
+              cameraTotal: 6,
+              person: 0,
+            },
+            {
+              id: 10,
+              type: "safe",
+              name: "2층 민원실 뒤",
+              cameraCnt: 3,
+              cameraTotal: 6,
+              person: 1,
+            },
+            {
+              id: 11,
+              type: "safe",
+              name: "2층 비상구 계단",
+              cameraCnt: 1,
+              cameraTotal: 6,
+              person: 0,
+            },
+          ];
+
+          listBody.innerHTML = "";
+          statusList.forEach(function (status) {
+            var item = document.createElement("div");
+            item.className = "place_detail_status_item";
+
+            var title = document.createElement("div");
+            title.className = "place_detail_status_item_title";
+
+            var light = document.createElement("div");
+            if (status.type === "safe") {
+              light.className = "place_detail_status_light safe";
+            } else if (status.type === "danger") {
+              light.className = "place_detail_status_light danger";
+            } else {
+              light.className = "place_detail_status_light";
+            }
+
+            var name = document.createElement("div");
+            name.className = "place_detail_status_name";
+            name.innerHTML = status.name;
+
+            title.appendChild(light);
+            title.appendChild(name);
+
+            var valueContainer = document.createElement("div");
+            valueContainer.className =
+              "place_detail_status_item_value_container";
+
+            var camera = document.createElement("div");
+            camera.className = "place_detail_status_item_camera";
+            camera.innerHTML =
+              "Cameras " +
+              "<span>" +
+              status.cameraCnt +
+              "/" +
+              status.cameraTotal +
+              "</span>";
+
+            var person = document.createElement("div");
+            person.className = "place_detail_status_item_person";
+            person.innerHTML =
+              "Persons " + "<span>" + status.person + "</span>";
+
+            valueContainer.appendChild(camera);
+            valueContainer.appendChild(person);
+
+            item.appendChild(title);
+            item.appendChild(valueContainer);
+
+            listBody.appendChild(item);
+          });
+        } else {
+          liveAllSidebar.style.display = "none";
+          live2x2Sidebar.style.display = "flex";
+
+          var listBody = document.querySelector(".dot_sidebar_alarm_list");
+          var alarmList = [
+            {
+              id: 1,
+              type: "safe",
+              title: "열이 감지 되었습니다. | 정확도 98%",
+              time: "2021.01.25 14:55:26",
+              place: "2층 도서관 앞",
+              check: "안전 범위",
+            },
+            {
+              id: 2,
+              type: "safe",
+              title: "열이 감지 되었습니다. | 정확도 98%",
+              time: "2021.01.25 14:55:10",
+              place: "2층 휴게 1실 내부",
+              check: "안전 범위",
+            },
+            {
+              id: 3,
+              type: "danger",
+              title: "열이 감지 되었습니다. | 정확도 99%",
+              time: "2021.01.25 14:03:09",
+              place: "2층 도서관 앞",
+              check: "현장 점검 필요",
+            },
+            {
+              id: 4,
+              type: "safe",
+              title: "열이 감지 되었습니다. | 정확도 86%",
+              time: "2021.01.25 13:20:30",
+              place: "2층 로비 뒤",
+              check: "안전 범위",
+            },
+            {
+              id: 5,
+              type: "safe",
+              title: "열이 감지 되었습니다. | 정확도 95%",
+              time: "2021.01.25 13:20:30",
+              place: "2층 로비 뒤",
+              check: "안전 범위",
+            },
+            {
+              id: 6,
+              type: "danger",
+              title: "열이 감지 되었습니다. | 정확도 99%",
+              time: "2021.01.25 14:03:09",
+              place: "2층 도서관 앞",
+              check: "현장 점검 필요",
+            },
+          ];
+
+          listBody.innerHTML = "";
+
+          alarmList.forEach(function (alarm) {
+            var item = document.createElement("div");
+            item.className = "dot_sidebar_alarm_item";
+
+            var closeIcon = document.createElement("img");
+            closeIcon.className = "dot_sidebar_alarm_close_icon cursor";
+            closeIcon.src = "./resources/img/common/close.png";
+            closeIcon.addEventListener("click", function () {
+              item.style.display = "none";
+            });
+
+            var header = document.createElement("div");
+            header.className = "dot_sidebar_alarm_header";
+
+            var container = document.createElement("div");
+            container.className = "dot_sidebar_alarm_container";
+
+            var light = document.createElement("div");
+            if (alarm.type === "safe") {
+              light.className = "dot_sidebar_alarm_light safe";
+            } else if (alarm.type === "danger") {
+              light.className = "dot_sidebar_alarm_light danger";
+            } else {
+              light.className = "dot_sidebar_alarm_light";
+            }
+
+            var title = document.createElement("div");
+            title.className = "dot_sidebar_alarm_title";
+            title.innerHTML = alarm.title;
+
+            header.appendChild(light);
+            header.appendChild(title);
+
+            var time = document.createElement("div");
+            time.className = "dot_sidebar_alram_contents_item";
+            time.innerHTML = "<span>발생 시간&nbsp;</span>" + alarm.time;
+
+            var place = document.createElement("div");
+            place.className = "dot_sidebar_alram_contents_item";
+            place.innerHTML = "<span>발생 장소&nbsp;</span>" + alarm.place;
+
+            var check = document.createElement("div");
+            check.className = "dot_sidebar_alram_contents_item";
+            check.innerHTML = "<span>안전 감지&nbsp;</span>" + alarm.check;
+
+            container.appendChild(time);
+            container.appendChild(place);
+            container.appendChild(check);
+
+            item.appendChild(closeIcon);
+            item.appendChild(header);
+            item.appendChild(container);
+
+            listBody.appendChild(item);
+          });
+        }
+      }
+
+      //라이브 뷰 아이템 생성
+      function createPageElement(data) {
+        var gridItem = document.createElement("div");
+        gridItem.className = "live_page_item";
+
+        var videoWrap = document.createElement("div");
+        videoWrap.className = "live_page_video_wrap";
+
+        //비디오 태그 생성
+        var video = document.createElement("video");
+        video.className = "live_page_video";
+        video.src = "./resources/movies/waterfall.mp4";
+        video.controls = true;
+        videoWrap.appendChild(video);
+        gridItem.appendChild(videoWrap);
+
+        //장소 정보
+        var infoWrap = document.createElement("div");
+        infoWrap.className = "live_page_item_info_wrap";
+        var info = document.createElement("div");
+        info.className = "live_page_item_info";
+        var title = document.createElement("div");
+        title.className = "live_page_item_info_title";
+        title.innerHTML = data.title;
+        info.appendChild(title);
+
+        //장소 현재 상태
+        var status = document.createElement("div");
+        status.className = "live_page_item_info_status";
+
+        //장소 인원 현황
+        var countItem = document.createElement("div");
+        countItem.className = "live_page_item_info_status_item";
+        var personIcon = document.createElement("img");
+        personIcon.src = "./resources/img/common/person_min.png";
+        var count = document.createElement("div");
+        count.className = "live_page_item_info_status_item_value";
+        count.innerHTML = data.person;
+        countItem.appendChild(personIcon);
+        countItem.appendChild(count);
+
+        //장소 온도 상태
+        var tempItem = document.createElement("div");
+        tempItem.className = "live_page_item_info_status_item";
+        var tempLabel = document.createElement("div");
+        tempLabel.className = "live_page_item_info_status_item_label";
+        tempLabel.innerHTML = "온도";
+        var temp = document.createElement("div");
+        temp.className = "live_page_item_info_status_item_value";
+        temp.innerHTML = data.temp + "℃";
+        tempItem.appendChild(tempLabel);
+        tempItem.appendChild(temp);
+
+        //장소 습도 상태
+        var humItem = document.createElement("div");
+        humItem.className = "live_page_item_info_status_item";
+        var humLabel = document.createElement("div");
+        humLabel.className = "live_page_item_info_status_item_label";
+        humLabel.innerHTML = "습도";
+        var hum = document.createElement("div");
+        hum.className = "live_page_item_info_status_item_value";
+        hum.innerHTML = data.hum + "%";
+        humItem.appendChild(humLabel);
+        humItem.appendChild(hum);
+
+        status.appendChild(countItem);
+        status.appendChild(tempItem);
+        status.appendChild(humItem);
+
+        info.appendChild(status);
+
+        infoWrap.appendChild(info);
+
+        var btnArea = document.createElement("div");
+        btnArea.className = "live_page_item_btn_area";
+
+        var visibleBtn = document.createElement("img");
+        visibleBtn.src = "./resources/img/common/visible_btn.png";
+        var shareBtn = document.createElement("img");
+        shareBtn.src = "./resources/img/common/share_btn.png";
+        var screenBtn = document.createElement("img");
+        screenBtn.src = "./resources/img/common/full_screen_btn.png";
+
+        btnArea.appendChild(visibleBtn);
+        btnArea.appendChild(shareBtn);
+        btnArea.appendChild(screenBtn);
+
+        infoWrap.appendChild(btnArea);
+
+        gridItem.appendChild(infoWrap);
+
+        return gridItem;
+      }
+
+      function closeStatusPopup() {
+        event.stopPropagation();
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        statusPopup.style.display = "none";
+      }
+
+      function openSideMenu() {
+        var sideMenu = document.getElementById("side_menu");
+        if (sideMenu.getAttribute("style") == "display: flex;") {
+          sideMenu.style.display = "none";
+        } else {
+          sideMenu.style.display = "flex";
+        }
+      }
+
+      function navMenu(menu) {
+        window.location.href = menu + ".html";
+      }
+
+      //사이드바 생성
+      window.onload = function () {
+        var listBody = document.querySelector(".place_detail_status_list");
+        var statusList = [
+          {
+            id: 1,
+            type: "danger",
+            name: "2층 로비 뒤",
+            cameraCnt: 6,
+            cameraTotal: 6,
+            person: 5,
+          },
+          {
+            id: 2,
+            type: "danger",
+            name: "2층 민원실 앞",
+            cameraCnt: 3,
+            cameraTotal: 6,
+            person: 2,
+          },
+          {
+            id: 3,
+            type: "safe",
+            name: "2층 휴게1실 좌측",
+            cameraCnt: 4,
+            cameraTotal: 6,
+            person: 0,
+          },
+          {
+            id: 4,
+            type: "safe",
+            name: "2층 로비 전경",
+            cameraCnt: 3,
+            cameraTotal: 6,
+            person: 5,
+          },
+          {
+            id: 5,
+            type: "safe",
+            name: "2층 휴게1실 우측",
+            cameraCnt: 2,
+            cameraTotal: 6,
+            person: 1,
+          },
+          {
+            id: 6,
+            type: "safe",
+            name: "2층 휴게1실 내부",
+            cameraCnt: 2,
+            cameraTotal: 6,
+            person: 1,
+          },
+          {
+            id: 7,
+            type: "safe",
+            name: "2층 민원실 안",
+            cameraCnt: 2,
+            cameraTotal: 6,
+            person: 2,
+          },
+          {
+            id: 8,
+            type: "safe",
+            name: "2층 휴게2실 전경",
+            cameraCnt: 1,
+            cameraTotal: 6,
+            person: 2,
+          },
+          {
+            id: 9,
+            type: "safe",
+            name: "2층 휴게2실 앞",
+            cameraCnt: 2,
+            cameraTotal: 6,
+            person: 0,
+          },
+          {
+            id: 10,
+            type: "safe",
+            name: "2층 민원실 뒤",
+            cameraCnt: 3,
+            cameraTotal: 6,
+            person: 1,
+          },
+          {
+            id: 11,
+            type: "safe",
+            name: "2층 비상구 계단",
+            cameraCnt: 1,
+            cameraTotal: 6,
+            person: 0,
+          },
+        ];
+
+        listBody.innerHTML = "";
+        statusList.forEach(function (status) {
+          var item = document.createElement("div");
+          item.className = "place_detail_status_item";
+
+          var title = document.createElement("div");
+          title.className = "place_detail_status_item_title";
+
+          var light = document.createElement("div");
+          if (status.type === "safe") {
+            light.className = "place_detail_status_light safe";
+          } else if (status.type === "danger") {
+            light.className = "place_detail_status_light danger";
+          } else {
+            light.className = "place_detail_status_light";
+          }
+
+          var name = document.createElement("div");
+          name.className = "place_detail_status_name";
+          name.innerHTML = status.name;
+
+          title.appendChild(light);
+          title.appendChild(name);
+
+          var valueContainer = document.createElement("div");
+          valueContainer.className = "place_detail_status_item_value_container";
+
+          var camera = document.createElement("div");
+          camera.className = "place_detail_status_item_camera";
+          camera.innerHTML =
+            "Cameras " +
+            "<span>" +
+            status.cameraCnt +
+            "/" +
+            status.cameraTotal +
+            "</span>";
+
+          var person = document.createElement("div");
+          person.className = "place_detail_status_item_person";
+          person.innerHTML = "Persons " + "<span>" + status.person + "</span>";
+
+          valueContainer.appendChild(camera);
+          valueContainer.appendChild(person);
+
+          item.appendChild(title);
+          item.appendChild(valueContainer);
+
+          listBody.appendChild(item);
+        });
+      };
+
+      //위험 상황 보고 모달
+      function openStatusPopup() {
+        var statusPopup = document.getElementById(
+          "overview_emergency_status_popup"
+        );
+        var tableBody = document.getElementById("status_popup_tbody");
+        tableBody.innerHTML = "";
+
+        var dataArray = [
+          {
+            id: 1,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "홍길동",
+            etc: "-",
+          },
+          {
+            id: 2,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "김길동",
+            etc: "-",
+          },
+          {
+            id: 3,
+            dept: "관리처 안전관리팀",
+            position: "안전환경 관리자",
+            name: "박길동",
+            etc: "-",
+          },
+          {
+            id: 4,
+            dept: "관리처 안전관리팀",
+            position: "관리팀장",
+            name: "황길동",
+            etc: "-",
+          },
+          {
+            id: 5,
+            dept: "관리처 안전관리팀",
+            position: "사무처장",
+            name: "이길동",
+            etc: "-",
+          },
+        ];
+        statusPopup.style.display = "flex";
+
+        dataArray.forEach(function (item) {
+          var row = tableBody.insertRow();
+          var checkBoxCell = row.insertCell(0); // 체크박스를 추가할 셀
+          var deptCell = row.insertCell(1);
+          var positionCell = row.insertCell(2);
+          var nameCell = row.insertCell(3);
+          var etcCell = row.insertCell(4);
+
+          var label = document.createElement("label");
+          label.setAttribute("for", "checkbox_" + item.id); // label과 checkbox를 연결
+
+          var checkboxWrap = document.createElement("div");
+          checkboxWrap.className = "popup_checkbox";
+          label.appendChild(checkboxWrap); // 라벨을 셀에 추가
+
+          var checkIcon = document.createElement("img");
+          checkIcon.src = "./resources/img/common/check.png";
+          checkIcon.className = "popup_checkbox_icon";
+          checkboxWrap.appendChild(checkIcon);
+          checkBoxCell.appendChild(label); // 라벨을 셀에 추가
+
+          var checkBox = document.createElement("input");
+          checkBox.type = "checkbox";
+          checkBox.className = "custom-checkbox";
+          checkBox.id = "checkbox_" + item.id; // 각 체크박스에 고유한 ID 부여
+          checkBox.addEventListener("change", function (event) {
+            if (event.target.checked) {
+              checkboxWrap.style.backgroundColor = "#0373ff";
+              checkboxWrap.style.border = "solid 1px #0373ff";
+              checkIcon.style.display = "flex";
+            } else {
+              checkboxWrap.style.backgroundColor = "transparent";
+              checkboxWrap.style.border = "solid 1px #5c6067";
+              checkIcon.style.display = "none";
+            }
+          });
+          checkBoxCell.appendChild(checkBox); // 체크박스를 셀에 추가
+
+          deptCell.innerHTML = item.dept;
+          positionCell.innerHTML = item.position;
+          nameCell.innerHTML = item.name;
+          etcCell.innerHTML = item.etc;
+
+          // 첫 번째 셀에 align="center" 특성 추가
+          if (row.cells[0]) {
+            row.cells[0].style.textAlign = "-webkit-center";
+            row.cells[0].style.verticalAlign = "middle";
+          }
+        });
+      }
+    </script>
+
+    <!-- bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Third Eye</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="./resources/css/style_1920.css" />
+    <link rel="stylesheet" href="./resources/css/fonts.css" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </head>
+  <body>
+    <div class="page_container">
+      <div class="body">
+        <div class="main_container">
+          <div class="main_wrapper">
+            <div class="main_area">
+              <div class="header">
+                <div class="header_box">
+                  <!-- 햄버거 메뉴 버튼 -->
+                  <div class="side_menu_btn" onclick="openSideMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <img
+                    alt=""
+                    class="cursor"
+                    src="./resources/img/common/header_logo.png"
+                    onclick="navMenu('over')"
+                  />
+                  <div class="header_duration">
+                    <img alt="" src="./resources/img/common/clock.png" />
+                    <div class="duration_label">남은시간</div>
+                    <div class="duration_value">59:31</div>
+                  </div>
+                </div>
+
+                <!-- 헤더 메뉴 리스트 -->
+                <div class="header_box">
+                  <div id="menu_over" class="menu" onclick="navMenu('over')">
+                    Overview
+                  </div>
+                  <div id="menu_live" class="menu" onclick="navMenu('live')">
+                    Live view
+                  </div>
+                  <div id="menu_dot" class="menu" onclick="navMenu('dot')">
+                    Dot view
+                  </div>
+                </div>
+
+                <!-- 헤더 우측 날씨 및 온도 영역 -->
+                <div class="header_box">
+                  <div class="weather_wrap">
+                    <img alt="" src="./resources/img/common/weather.png" />
+
+                    <div class="temperature_wrap">
+                      <div class="temperature_label">온도</div>
+                      <div class="temperature_value"><span>25</span>℃</div>
+                    </div>
+
+                    <span></span>
+
+                    <div class="humidity_wrap">
+                      <div class="humidity_label">습도</div>
+                      <div class="humidity_value"><span>30</span>%</div>
+                    </div>
+                  </div>
+                  <div class="datetime"></div>
+                  <div class="profile_btn">
+                    <img alt="" src="./resources/img/common/profile.png" />
+                  </div>
+                </div>
+              </div>
+
+              <div id="side_menu">
+                <div class="side_menu_title">Menu</div>
+                <div class="side_menu_item" onclick="navMenu('over')">
+                  <img alt="" src="./resources/img/common/home.png" />
+                  <span>Home 실시간 영상</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('video')">
+                  <img alt="" src="./resources/img/common/video.png" />
+                  <span>영상 조회</span>
+                </div>
+                <div class="side_menu_item" onclick="navMenu('log')">
+                  <img alt="" src="./resources/img/common/log.png" />
+                  <span>이벤트 감지 내역</span>
+                </div>
+                <div class="side_menu_item">
+                  <img alt="" src="./resources/img/common/setting.png" />
+                  <span>설정 및 관리</span>
+                </div>
+              </div>
+
+              <div id="video_contents">
+                <div class="video_title">영상조회</div>
+                <div class="video_filter_wrap">
+                  <div class="video_filter_select_wrap">
+                    <div class="video_filter_label">검색 구분</div>
+                    <div class="video_filter_select_list">
+                      <select class="form-select">
+                        <option selected>전체</option>
+                      </select>
+                      <select class="form-select">
+                        <option selected>카메라명</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="video_filter_datetime_wrap">
+                    <div class="video_filter_label">검색 시간</div>
+                    <div class="video_filter_date_range_start">
+                      <input
+                        class="video_filter_start_date"
+                        type="date"
+                        value="2024-01-31"
+                      />
+
+                      <input
+                        class="video_filter_start_time"
+                        type="time"
+                        value="07:30:00"
+                      />
+                    </div>
+                    <span>~</span>
+                    <div class="video_filter_date_range_end">
+                      <input
+                        class="video_filter_end_date"
+                        type="date"
+                        value="2024-01-31"
+                      />
+
+                      <input
+                        class="video_filter_end_time"
+                        type="time"
+                        value="13:40:00"
+                      />
+                    </div>
+                    <button class="vidoe_filter_btn">조회</button>
+                  </div>
+                </div>
+                <div class="video_container">
+                  <div class="video_side_area">
+                    <div class="video_side_label">Step 01 | 장소 및 카메라</div>
+                    <div class="video_place_list">
+                      <div
+                        class="video_place_btn active"
+                        name="본관"
+                        onclick="changePlace('본관')"
+                      >
+                        본관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="경영관"
+                        onclick="changePlace('경영관')"
+                      >
+                        경영관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="인문관"
+                        onclick="changePlace('인문관')"
+                      >
+                        인문관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="공과대학 공동실험관"
+                        onclick="changePlace('공과대학 공동실험관')"
+                      >
+                        공과대학 공동실험관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="공동실험실습관"
+                        onclick="changePlace('공동실험실습관')"
+                      >
+                        공동실험실습관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="공동연구소동"
+                        onclick="changePlace('공동연구소동')"
+                      >
+                        공동연구소동
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="과학기술연구동"
+                        onclick="changePlace('과학기술연구동')"
+                      >
+                        과학기술연구동
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="교수회관"
+                        onclick="changePlace('교수회관')"
+                      >
+                        교수회관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="체육관"
+                        onclick="changePlace('체육관')"
+                      >
+                        체육관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="국제관"
+                        onclick="changePlace('국제관')"
+                      >
+                        국제관
+                      </div>
+                      <div
+                        class="video_place_btn"
+                        name="국제언어교육원"
+                        onclick="changePlace('국제언어교육원')"
+                      >
+                        국제언어교육원
+                      </div>
+                    </div>
+                  </div>
+                  <div class="video_main_area">
+                    <div class="video_step_area">
+                      <div class="video_step_item">
+                        <div class="video_step_label">Step 02 | 층수 선택</div>
+                        <div class="video_floor_btn_list">
+                          <div
+                            class="video_floor_btn"
+                            name="all"
+                            onclick="changeFloor('all')"
+                          >
+                            전체
+                          </div>
+                          <div
+                            class="video_floor_btn active"
+                            name="1"
+                            onclick="changeFloor('1')"
+                          >
+                            1층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="2"
+                            onclick="changeFloor('2')"
+                          >
+                            2층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="3"
+                            onclick="changeFloor('3')"
+                          >
+                            3층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="4"
+                            onclick="changeFloor('4')"
+                          >
+                            4층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="5"
+                            onclick="changeFloor('5')"
+                          >
+                            5층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="6"
+                            onclick="changeFloor('6')"
+                          >
+                            6층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="7"
+                            onclick="changeFloor('7')"
+                          >
+                            7층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="8"
+                            onclick="changeFloor('8')"
+                          >
+                            8층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="9"
+                            onclick="changeFloor('9')"
+                          >
+                            9층
+                          </div>
+                          <div
+                            class="video_floor_btn"
+                            name="10"
+                            onclick="changeFloor('10')"
+                          >
+                            10층
+                          </div>
+                        </div>
+                      </div>
+                      <span></span>
+                      <div class="video_step_item">
+                        <div class="video_step_label">
+                          Step 03 | 카메라 선택
+                        </div>
+                        <div class="video_camera_btn_list">
+                          <div
+                            class="video_camera_btn"
+                            name="all"
+                            onclick="changeCamera('all')"
+                          >
+                            전체
+                          </div>
+                          <div
+                            class="video_camera_btn active"
+                            name="F-1-1001"
+                            onclick="changeCamera('F-1-1001')"
+                          >
+                            F-1-1001
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1002"
+                            onclick="changeCamera('F-1-1002')"
+                          >
+                            F-1-1002
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1003"
+                            onclick="changeCamera('F-1-1003')"
+                          >
+                            F-1-1003
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1004"
+                            onclick="changeCamera('F-1-1004')"
+                          >
+                            F-1-1004
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1005"
+                            onclick="changeCamera('F-1-1005')"
+                          >
+                            F-1-1005
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1006"
+                            onclick="changeCamera('F-1-1006')"
+                          >
+                            F-1-1006
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1007"
+                            onclick="changeCamera('F-1-1007')"
+                          >
+                            F-1-1007
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1008"
+                            onclick="changeCamera('F-1-1008')"
+                          >
+                            F-1-1008
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1009"
+                            onclick="changeCamera('F-1-1009')"
+                          >
+                            F-1-1009
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1010"
+                            onclick="changeCamera('F-1-1010')"
+                          >
+                            F-1-1010
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1011"
+                            onclick="changeCamera('F-1-1011')"
+                          >
+                            F-1-1011
+                          </div>
+                          <div
+                            class="video_camera_btn"
+                            name="F-1-1012"
+                            onclick="changeCamera('F-1-1012')"
+                          >
+                            F-1-1012
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="video_play_area">
+                      <div class="video_player">
+                        <video src="./resources/movies/waterfall.mp4" controls></video>
+                      </div>
+                      <div class="video_info_wrap">
+                        <div class="video_info">
+                          <div class="video_info_title">
+                            본관 1층 공용휴게실 내부
+                          </div>
+                          <div class="place_info">
+                            <div class="place_info_item">
+                              <img src="./resources/img/common/person_min.png" />
+                              <div class="place_info_value">2</div>
+                            </div>
+                            <div class="place_info_item">
+                              <div class="place_info_label">온도</div>
+                              <div class="place_info_value">25℃</div>
+                            </div>
+                            <div class="place_info_item">
+                              <div class="place_info_label">습도</div>
+                              <div class="place_info_value">30%</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="video_memo_wrap">
+                          <div class="video_memo_label">메모</div>
+                          <textarea
+                            class="video_memo"
+                            placeholder="내용을 입력해 주세요."
+                          ></textarea>
+                          <div class="video_memo_btn_wrap">
+                            <button class="video_memo_save_btn">
+                              내용 저장하기
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function dateTime() {
+        var now = dayjs();
+
+        // Format the date and time
+        var formattedDateTime = now.format("YYYY-MM-DD HH:mm:ss");
+
+        document.querySelector(".datetime").innerHTML = formattedDateTime;
+      }
+      // Update time initially
+      dateTime();
+
+      // Update time every second (1000 milliseconds)
+      setInterval(dateTime, 1000);
+      function changeView(view) {
+        // 모든 탭 숨기기
+        var tabContents = document.querySelectorAll(".menu");
+
+        tabContents.forEach(function (tabContent) {
+          if (tabContent.id === view) {
+            tabContent.classList.add("active");
+          } else {
+            tabContent.classList.remove("active");
+            // 클릭한 탭 보이기
+            var selectedTab = document.getElementById("menu_" + view);
+            if (selectedTab) {
+              selectedTab.classList.add("active");
+            }
+          }
+        });
+      }
+
+      function openSideMenu() {
+        var sideMenu = document.getElementById("side_menu");
+        if (sideMenu.getAttribute("style") == "display: flex;") {
+          sideMenu.style.display = "none";
+        } else {
+          sideMenu.style.display = "flex";
+        }
+      }
+
+      function navMenu(menu) {
+        window.location.href = menu + ".html";
+      }
+
+      function changePlace(place) {
+        var placeBtn = document.querySelectorAll(".video_place_btn");
+        placeBtn.forEach(function (btn) {
+          if (place == btn.getAttribute("name")) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+      function changeFloor(floor) {
+        var floorBtn = document.querySelectorAll(".video_floor_btn");
+        floorBtn.forEach(function (btn) {
+          if (floor == btn.getAttribute("name")) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+      function changeCamera(camera) {
+        var cameraBtn = document.querySelectorAll(".video_camera_btn");
+        cameraBtn.forEach(function (btn) {
+          if (camera == btn.getAttribute("name")) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
