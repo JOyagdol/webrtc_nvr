@@ -10,5 +10,5 @@ go2rtc.json
 
 record/
 
-movies/VMS_*
-movies/*_output.mp4
+www/resources/movies/VMS_*
+www/resources/movies/*_output.mp4
